@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="plant_array">
+        <item>상추</item>
+        <item>배추</item>
+        <item>나영</item>
+    </string-array>
+</resources>
