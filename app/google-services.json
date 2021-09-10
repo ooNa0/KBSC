@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "382499474451",
+    "project_id": "mysmartg-f4b09",
+    "storage_bucket": "mysmartg-f4b09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382499474451:android:f9fbeb72c876228c3743e6",
+        "android_client_info": {
+          "package_name": "com.MySmartGarden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382499474451-p7pp54ogn7ti9cfqb5ha73n0pvlppoa2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjb26ge1dGAqPdFc_VHugKawQdVB-HIJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382499474451-p7pp54ogn7ti9cfqb5ha73n0pvlppoa2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382499474451:android:9b1848fbbb8090583743e6",
+        "android_client_info": {
+          "package_name": "com.example.mysmartgarden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382499474451-p7pp54ogn7ti9cfqb5ha73n0pvlppoa2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjb26ge1dGAqPdFc_VHugKawQdVB-HIJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382499474451-p7pp54ogn7ti9cfqb5ha73n0pvlppoa2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
