@@ -1,0 +1,2 @@
+rootProject.name = "MySmartGarden"
+include ':app'
