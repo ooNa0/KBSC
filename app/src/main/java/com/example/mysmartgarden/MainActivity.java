@@ -1,8 +1,12 @@
 package com.example.mysmartgarden;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,29 +24,27 @@ import com.bumptech.glide.Glide;
 import com.github.matteobattilana.weather.PrecipType;
 import com.github.matteobattilana.weather.WeatherView;
 
+import me.relex.circleindicator.CircleIndicator3;
+
 public class MainActivity extends AppCompatActivity {
 
     int clickedSun;
     private boolean _isBtnDown;
-    LinearLayout main_back;
+
 
     Toolbar toolbar;
     ActionBar actionBar;
 
-    ImageButton sun;
-    ImageButton plant;
-
-    WeatherView weatherView;
-
-    TextView notice,info1,info2,info3,info4;
+    private ViewPager2 mPager;
+    private FragmentStateAdapter pagerAdapter;
+    private int num_page = 3;
+    private CircleIndicator3 mIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        clickedSun=1;
-        main_back=findViewById(R.id.main_back);//맨뒤 배경
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,102 +53,57 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        sun=findViewById(R.id.sun);//이미지 버튼
-        plant=findViewById(R.id.plant);
-        Glide.with(this).load(R.raw.sun).into(sun);
-        Glide.with(this).load(R.raw.plant).into(plant);
+        //ViewPager2
+        mPager = findViewById(R.id.viewpager);
+        //Adapter
+        pagerAdapter = new MyAdapter(this, num_page);
+        mPager.setAdapter(pagerAdapter);
+        //Indicator
+        mIndicator = findViewById(R.id.indicator);
+        mIndicator.setViewPager(mPager);
+        mIndicator.createIndicators(num_page,0);
+        //ViewPager Setting
+        mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        mPager.setCurrentItem(1000);
+        mPager.setOffscreenPageLimit(1);
 
-        weatherView = findViewById(R.id.weather_view);
-
-        plant.setOnTouchListener(onBtnTouchListener);
-
-        sun.setOnClickListener(new View.OnClickListener(){//태양 클릭 시
+        mPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
-            public void onClick(View view){
-                if(clickedSun==1) {//최대->중
-                    main_back.setBackgroundColor(getColor(R.color.gray1));
-                    clickedSun++;
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                if (positionOffsetPixels == 0) {
+                    mPager.setCurrentItem(position);
                 }
-                else if(clickedSun==2){//중->소
-                    main_back.setBackgroundColor(getColor(R.color.gray2));
-                    clickedSun++;
-                }
-                else if(clickedSun==3){//소->꺼짐
-                    main_back.setBackgroundColor(getColor(R.color.gray3));
-                    clickedSun++;
-                }
-                else if(clickedSun==4){//꺼짐->최대
-                    main_back.setBackgroundColor(Color.WHITE);
-                    clickedSun=1;
-                }
-
             }
 
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                mIndicator.animatePageSelected(position%num_page);
+            }
 
         });
 
-        notice=findViewById(R.id.notice);//알림
-        info1=findViewById(R.id.info1);//토양습도
-        info2=findViewById(R.id.info2);//습도
-        info3=findViewById(R.id.info3);//온도
-        info4=findViewById(R.id.info4);//물통양
 
-    }
+        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
+        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
 
-    private void onBtnDown()
-    {
-
-        TouchThread kThread = new TouchThread();
-        kThread.start();
-    }
-
-    private Handler touchHandler = new Handler()
-    {
-        public void handleMessage(Message msg)
-        {
-            Log.d("MainActivity", "click");
-        }
-    };
-
-    private class TouchThread extends Thread
-    {
-        @Override
-        public void run() {
-            super.run();
-            while(_isBtnDown)
-            {
-                touchHandler.sendEmptyMessage(9876);
-
-                try{
-                    Thread.sleep(200);
-                }catch(Exception e){
-                    e.printStackTrace();
+        mPager.setPageTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float myOffset = position ;
+                if (mPager.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
+                    if (ViewCompat.getLayoutDirection(mPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
+                        page.setTranslationX(-myOffset);
+                    } else {
+                        page.setTranslationX(myOffset);
+                    }
+                } else {
+                    page.setTranslationY(myOffset);
                 }
             }
-        }
+        });
+
     }
-
-    private View.OnTouchListener onBtnTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()){
-                case MotionEvent.ACTION_DOWN://누르
-                    _isBtnDown = true;
-                    weatherView.setWeatherData(PrecipType.RAIN);
-                    onBtnDown();
-                    break;
-
-                case MotionEvent.ACTION_UP://때면
-                    _isBtnDown = false;
-                    weatherView.setWeatherData(PrecipType.CLEAR);
-                    break;
-
-                default:
-                    break;
-            }
-            return false;
-        }
-    };
-
 
 }
