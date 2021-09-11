@@ -16,12 +16,12 @@ public class introActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // 처음에 이름이 비어있다면, 이름과 식물의 종을 정하는 페이지로 감
-                Intent intent = new Intent (getApplicationContext(), PlantSpinerActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent (getApplicationContext(), PlantSpinerActivity.class);
+                //startActivity(intent);
 
                 //인트로 실행 후 바로 MainActivity로 넘어감.
-                //Intent intent = new Intent (getApplicationContext(), MainActivity.class);
-               //startActivity(intent);
+                Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+               startActivity(intent);
                 finish();
 
             }
