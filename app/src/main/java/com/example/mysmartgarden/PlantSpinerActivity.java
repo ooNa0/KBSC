@@ -22,19 +22,19 @@ public class PlantSpinerActivity extends AppCompatActivity {
         setContentView(R.layout.start_app_activity);
 
         // Spinner 객체 생성
-        final Spinner spiner = (Spinner) findViewById(R.id.spinner_plant);
+                final Spinner spiner = (Spinner) findViewById(R.id.spinner_plant);
 
-        // 인자로 어댑처 생성
-        final String[] string = getResources().getStringArray(R.array.plant_array);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, string);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spiner.setAdapter(adapter);
+                // 인자로 어댑처 생성
+                final String[] string = getResources().getStringArray(R.array.plant_array);
+                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, string);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spiner.setAdapter(adapter);
 
-        // Spinner 이벤트 리스너
-        spiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Selected Country: "+ spiner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                // Spinner 이벤트 리스너
+                spiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                        Toast.makeText(getApplicationContext(), "Selected Country: "+ spiner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
