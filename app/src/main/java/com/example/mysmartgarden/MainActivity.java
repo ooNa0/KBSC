@@ -23,6 +23,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.github.matteobattilana.weather.PrecipType;
 import com.github.matteobattilana.weather.WeatherView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Map;
 
 import me.relex.circleindicator.CircleIndicator3;
 
@@ -31,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     int clickedSun;
     private boolean _isBtnDown;
 
+    FirebaseFirestore db;
 
     Toolbar toolbar;
     ActionBar actionBar;
@@ -39,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private FragmentStateAdapter pagerAdapter;
     private int num_page = 3;
     private CircleIndicator3 mIndicator;
+
+    Map<String, Object> list;
+    Fragment_Main mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+
 
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
@@ -103,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
 
     }
 
