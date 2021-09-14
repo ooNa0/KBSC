@@ -85,6 +85,8 @@ public class Fragment_Main extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
+        withday=view.findViewById(R.id.withday);
+
         DocumentReference docRef = db.collection("user").document("RWX5pwrnPCqHsxiLGPEe");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -92,13 +94,15 @@ public class Fragment_Main extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        User user = document.toObject(User.class);
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());
 
-                        User user = document.toObject(User.class);
 
-                        list.add(document.toObject(User.class));
+
                         name=user.getName();
 
+                        withday.setText(name+"와 함게한지\n 13일");
+                        Log.d("TAG",name);
 
                     } else {
                         Log.d("TAG", "No such document");
@@ -148,8 +152,7 @@ public class Fragment_Main extends Fragment {
         });
 
 
-        withday=view.findViewById(R.id.withday);
-        withday.setText(name+"와 함게한지\n 13일");
+        
         notice=view.findViewById(R.id.notice);//알림
         info1=view.findViewById(R.id.info1);//토양습도
         info2=view.findViewById(R.id.info2);//습도
