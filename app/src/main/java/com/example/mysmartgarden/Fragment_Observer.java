@@ -1,7 +1,9 @@
 package com.example.mysmartgarden;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -101,6 +104,7 @@ public class Fragment_Observer extends Fragment {
                                     cha_Btn.setVisibility(View.VISIBLE);
                                     del_Btn.setVisibility(View.VISIBLE);
                                     save_Btn.setVisibility(View.INVISIBLE);
+                                    existDay(year,month+1,dayOfMonth);
                                 }
                                 else{
                                     contextEditText.setText("");
@@ -141,13 +145,14 @@ public class Fragment_Observer extends Fragment {
         save_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveDiary(fname);
-                str=contextEditText.getText().toString();
+
+
 
                 save_Btn.setVisibility(View.INVISIBLE);
                 cha_Btn.setVisibility(View.VISIBLE);
                 del_Btn.setVisibility(View.VISIBLE);
-                contextEditText.setVisibility(View.INVISIBLE);
+                contextEditText.setVisibility(View.VISIBLE);
+                str=contextEditText.getText().toString();
 
                 Map<String,Object> obser = new HashMap<>();
                 obser.put("info",str);
@@ -164,6 +169,7 @@ public class Fragment_Observer extends Fragment {
                     public void onSuccess(Void aVoid) {
                         // 로그인 성공시 intent로 화면전환
                         Log.d("TAG", "save : onSuccess: 인서트 잘됨");
+                        Toast.makeText(view.getContext(),"저장 완료.",Toast.LENGTH_SHORT).show();
                     }
                 })
                         .addOnFailureListener(new OnFailureListener() {
@@ -188,11 +194,38 @@ public class Fragment_Observer extends Fragment {
             public void onClick(View view) {
                 contextEditText.setVisibility(View.VISIBLE);
 
-                contextEditText.setText(str);
+                str=contextEditText.getText().toString();
 
-                save_Btn.setVisibility(View.VISIBLE);
-                cha_Btn.setVisibility(View.INVISIBLE);
-                del_Btn.setVisibility(View.INVISIBLE);
+                save_Btn.setVisibility(View.INVISIBLE);
+                cha_Btn.setVisibility(View.VISIBLE);
+                del_Btn.setVisibility(View.VISIBLE);
+
+                Map<String,Object> obser = new HashMap<>();
+                obser.put("info",str);
+                obser.put("year",eYear);
+                obser.put("month",eMonth);
+                obser.put("day",eDay);
+                obser.put("state","good");
+                obser.put("name","NA0");
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                db.collection("observation").document(""+eYear+eMonth+eDay).set(obser).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    public void onSuccess(Void aVoid) {
+                        // 로그인 성공시 intent로 화면전환
+                        Log.d("TAG", "save : onSuccess: 인서트 잘됨");
+
+                        Toast.makeText(view.getContext(),"수정 완료.",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("TAG", "onFailure: " + e.getMessage());
+                            }
+                        });
+
 
             }
 
@@ -206,65 +239,30 @@ public class Fragment_Observer extends Fragment {
                 save_Btn.setVisibility(View.VISIBLE);
                 cha_Btn.setVisibility(View.INVISIBLE);
                 del_Btn.setVisibility(View.INVISIBLE);
-                removeDiary(fname);
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                db.collection("observation").document(""+eYear+eMonth+eDay)
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("TAG", "DocumentSnapshot successfully deleted!");
+                                Toast.makeText(view.getContext(),"삭제 완료.",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("TAG", "Error deleting document", e);
+                            }
+                        });
+
             }
         });
     }
 
-    /*public void  checkDay(int cYear, int cMonth, int cDay){
-        fname=""+cYear+"-"+(cMonth+1)+""+"-"+cDay+".txt";//저장할 파일 이름설정
-        FileInputStream fis=null;//FileStream fis 변수
 
-        try{
-            fis=getActivity().openFileInput(fname);
-
-            byte[] fileData=new byte[fis.available()];
-            fis.read(fileData);
-            fis.close();
-
-            str=new String(fileData);
-
-            contextEditText.setVisibility(View.INVISIBLE);
-
-            save_Btn.setVisibility(View.INVISIBLE);
-            cha_Btn.setVisibility(View.VISIBLE);
-            del_Btn.setVisibility(View.VISIBLE);
-
-
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }*/
-
-    @SuppressLint("WrongConstant")
-    public void removeDiary(String readDay){
-        FileOutputStream fos=null;
-
-        try{
-            fos=getActivity().openFileOutput(readDay,MODE_NO_LOCALIZED_COLLATORS);
-            String content="";
-            fos.write((content).getBytes());
-            fos.close();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    @SuppressLint("WrongConstant")
-    public void saveDiary( String readDay){
-        FileOutputStream fos=null;
-
-        try{
-            fos=getActivity().openFileOutput(readDay,MODE_NO_LOCALIZED_COLLATORS);
-            String content=contextEditText.getText().toString();
-            fos.write((content).getBytes());
-            fos.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
 
 }
