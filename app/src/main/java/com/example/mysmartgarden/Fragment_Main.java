@@ -152,7 +152,7 @@ public class Fragment_Main extends Fragment {
         });
 
 
-        
+
         notice=view.findViewById(R.id.notice);//알림
         info1=view.findViewById(R.id.info1);//토양습도
         info2=view.findViewById(R.id.info2);//습도

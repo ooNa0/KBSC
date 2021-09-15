@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.MODE_NO_LOCALIZED_COLLATORS;
 
@@ -27,7 +41,7 @@ public class Fragment_Observer extends Fragment {
     public String str=null;
     public CalendarView calendarView;
     public Button cha_Btn,del_Btn,save_Btn;
-    public TextView diaryTextView,textView2,textView3;
+    public TextView diaryTextView;
     public EditText contextEditText;
 
     @Override
@@ -46,57 +60,158 @@ public class Fragment_Observer extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstancdState){
         super.onViewCreated(view,savedInstancdState);
-        calendarView=view.findViewById(R.id.calendarView);
-        diaryTextView=view.findViewById(R.id.diaryTextView);
-        save_Btn=view.findViewById(R.id.save_Btn);
-        del_Btn=view.findViewById(R.id.del_Btn);
-        cha_Btn=view.findViewById(R.id.cha_Btn);
-        textView2=view.findViewById(R.id.textView2);
-        textView3=view.findViewById(R.id.textView3);
-        contextEditText=view.findViewById(R.id.contextEditText);
-        //로그인 및 회원가입 엑티비티에서 이름을 받아옴
+        calendarView=view.findViewById(R.id.calendarView);//달력
+        diaryTextView=view.findViewById(R.id.diaryTextView);//날짜 보여주기
+        save_Btn=view.findViewById(R.id.save_Btn);//저장버튼
+        del_Btn=view.findViewById(R.id.del_Btn);//삭제버튼
+        cha_Btn=view.findViewById(R.id.cha_Btn);//수정버튼
 
-        String name="헤헷";
+        contextEditText=view.findViewById(R.id.contextEditText);//내용버튼
 
-        textView3.setText(name+"님의 달력 일기장");
 
+        
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 diaryTextView.setVisibility(View.VISIBLE);
                 save_Btn.setVisibility(View.VISIBLE);
                 contextEditText.setVisibility(View.VISIBLE);
-                textView2.setVisibility(View.INVISIBLE);
-                cha_Btn.setVisibility(View.INVISIBLE);
-                del_Btn.setVisibility(View.INVISIBLE);
-                diaryTextView.setText(String.format("%d / %d / %d",year,month+1,dayOfMonth));
-                contextEditText.setText("");
-                checkDay(year,month,dayOfMonth);
+
+                String dbname= String.format("%d - %d - %d",year,month+1,dayOfMonth);
+                diaryTextView.setText(dbname);
+
+                String doname=String.format("%d%d%d",year,month+1,dayOfMonth);
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                DocumentReference docRef = db.collection("observation").document(doname);
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Observation observation = document.toObject(Observation.class);
+                                Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+
+                                Log.d("TAG", String.valueOf(observation));
+
+                                if(observation.getYear()==year && observation.getMonth()==month+1 && observation.getDay()==dayOfMonth){//있을때
+                                    contextEditText.setText(observation.getInfo());
+                                    cha_Btn.setVisibility(View.VISIBLE);
+                                    del_Btn.setVisibility(View.VISIBLE);
+                                    save_Btn.setVisibility(View.INVISIBLE);
+                                }
+                                else{
+                                    contextEditText.setText("");
+                                    cha_Btn.setVisibility(View.INVISIBLE);
+                                    del_Btn.setVisibility(View.INVISIBLE);
+                                    save_Btn.setVisibility(View.VISIBLE);
+                                    noneDay(year,month+1,dayOfMonth);
+                                }
+
+                            } else {
+                                Log.d("TAG", "No such document");
+                                Log.d("TAG", "get failed with ", task.getException());
+                                contextEditText.setText("");
+                                cha_Btn.setVisibility(View.INVISIBLE);
+                                del_Btn.setVisibility(View.INVISIBLE);
+                                save_Btn.setVisibility(View.VISIBLE);
+                                noneDay(year,month+1,dayOfMonth);
+                            }
+                        } else {
+                            Log.d("TAG", "get failed with ", task.getException());
+                            contextEditText.setText("");
+                            cha_Btn.setVisibility(View.INVISIBLE);
+                            del_Btn.setVisibility(View.INVISIBLE);
+                            save_Btn.setVisibility(View.VISIBLE);
+                            noneDay(year,month+1,dayOfMonth);
+                        }
+                    }
+                });
+
             }
         });
+
+    }
+
+    public void noneDay(int nYear,int nMonth, int nDay){
+
+
         save_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveDiary(fname);
                 str=contextEditText.getText().toString();
-                textView2.setText(str);
+
                 save_Btn.setVisibility(View.INVISIBLE);
                 cha_Btn.setVisibility(View.VISIBLE);
                 del_Btn.setVisibility(View.VISIBLE);
                 contextEditText.setVisibility(View.INVISIBLE);
-                textView2.setVisibility(View.VISIBLE);
+
+                Map<String,Object> obser = new HashMap<>();
+                obser.put("info",str);
+                obser.put("year",nYear);
+                obser.put("month",nMonth);
+                obser.put("day",nDay);
+                obser.put("state","good");
+                obser.put("name","NA0");
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                db.collection("observation").document(""+nYear+nMonth+nDay).set(obser).addOnSuccessListener(new OnSuccessListener<Void>() { // 제대로 인서트 되면 함수의 주소를 가지고 있다가 넘겨줌.
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // 로그인 성공시 intent로 화면전환
+                        Log.d("TAG", "save : onSuccess: 인서트 잘됨");
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("TAG", "onFailure: " + e.getMessage());
+                            }
+                        });
+
+
 
             }
         });
     }
 
+    public void existDay(int eYear, int eMonth, int eDay){
 
-    @Override
-    public void onStop() {
-        super.onStop();
+
+
+        cha_Btn.setOnClickListener(new View.OnClickListener() {//수정
+            @Override
+            public void onClick(View view) {
+                contextEditText.setVisibility(View.VISIBLE);
+
+                contextEditText.setText(str);
+
+                save_Btn.setVisibility(View.VISIBLE);
+                cha_Btn.setVisibility(View.INVISIBLE);
+                del_Btn.setVisibility(View.INVISIBLE);
+
+            }
+
+        });
+        del_Btn.setOnClickListener(new View.OnClickListener() {//삭제
+            @Override
+            public void onClick(View view) {
+
+                contextEditText.setText("");
+                contextEditText.setVisibility(View.VISIBLE);
+                save_Btn.setVisibility(View.VISIBLE);
+                cha_Btn.setVisibility(View.INVISIBLE);
+                del_Btn.setVisibility(View.INVISIBLE);
+                removeDiary(fname);
+            }
+        });
     }
 
-    public void  checkDay(int cYear, int cMonth, int cDay){
+    /*public void  checkDay(int cYear, int cMonth, int cDay){
         fname=""+cYear+"-"+(cMonth+1)+""+"-"+cDay+".txt";//저장할 파일 이름설정
         FileInputStream fis=null;//FileStream fis 변수
 
@@ -110,52 +225,19 @@ public class Fragment_Observer extends Fragment {
             str=new String(fileData);
 
             contextEditText.setVisibility(View.INVISIBLE);
-            textView2.setVisibility(View.VISIBLE);
-            textView2.setText(str);
 
             save_Btn.setVisibility(View.INVISIBLE);
             cha_Btn.setVisibility(View.VISIBLE);
             del_Btn.setVisibility(View.VISIBLE);
 
-            cha_Btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    contextEditText.setVisibility(View.VISIBLE);
-                    textView2.setVisibility(View.INVISIBLE);
-                    contextEditText.setText(str);
 
-                    save_Btn.setVisibility(View.VISIBLE);
-                    cha_Btn.setVisibility(View.INVISIBLE);
-                    del_Btn.setVisibility(View.INVISIBLE);
-                    textView2.setText(contextEditText.getText());
-                }
 
-            });
-            del_Btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    textView2.setVisibility(View.INVISIBLE);
-                    contextEditText.setText("");
-                    contextEditText.setVisibility(View.VISIBLE);
-                    save_Btn.setVisibility(View.VISIBLE);
-                    cha_Btn.setVisibility(View.INVISIBLE);
-                    del_Btn.setVisibility(View.INVISIBLE);
-                    removeDiary(fname);
-                }
-            });
-            if(textView2.getText()==null){
-                textView2.setVisibility(View.INVISIBLE);
-                diaryTextView.setVisibility(View.VISIBLE);
-                save_Btn.setVisibility(View.VISIBLE);
-                cha_Btn.setVisibility(View.INVISIBLE);
-                del_Btn.setVisibility(View.INVISIBLE);
-                contextEditText.setVisibility(View.VISIBLE);
-            }
 
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
+
     @SuppressLint("WrongConstant")
     public void removeDiary(String readDay){
         FileOutputStream fos=null;
