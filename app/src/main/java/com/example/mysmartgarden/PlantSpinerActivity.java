@@ -24,43 +24,10 @@ public class PlantSpinerActivity extends AppCompatActivity {
 
     List<String> categories = new ArrayList<String>();
 
-    //파이어스토어에 접근하기 위한 객체를 생성한다.
-    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_app_activity);
-
-
-
-        //CollectionReference 는 파이어스토어의 컬렉션을 참조하는 객체다.
-        CollectionReference productRef = db.collection("user");
-
-        //get()을 통해서 해당 컬렉션의 정보를 가져온다.
-        productRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(Task<QuerySnapshot> task) {
-                //작업이 성공적으로 마쳤을때
-                if (task.isSuccessful()) {
-                    //컬렉션 아래에 있는 모든 정보를 가져온다.
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        //document.getData() or document.getId() 등등 여러 방법으로
-                        //데이터를 가져올 수 있다.
-                        Log.v("test", document.getData().toString());
-                        Log.v("test", "yessss");
-
-                    }
-                    //그렇지 않을때
-                } else {
-                    Log.v("test", "nonono");
-                }
-            }
-        });
-
-
-
-
 
 
         // Spinner 객체 생성
