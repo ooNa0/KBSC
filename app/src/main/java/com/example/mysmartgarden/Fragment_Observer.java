@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +37,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.content.Context.MODE_NO_LOCALIZED_COLLATORS;
+
 
 public class Fragment_Observer extends Fragment {
 
-    public String fname=null;
+
     public String str=null;
     public CalendarView calendarView;
     public Button cha_Btn,del_Btn,save_Btn;
@@ -72,7 +73,6 @@ public class Fragment_Observer extends Fragment {
         contextEditText=view.findViewById(R.id.contextEditText);//내용버튼
 
 
-        
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {

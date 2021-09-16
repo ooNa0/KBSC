@@ -17,7 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlantSpinerActivity"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
+
+
     </application>
 
 </manifest>

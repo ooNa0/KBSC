@@ -129,20 +129,17 @@ public class Fragment_Main extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view){
-                if(clickedSun==1) {//최대->중
-                    main_back.setBackgroundColor(Color.parseColor("#A3A3A3"));
+                if(clickedSun==1) {//킴->꺼짐
+                    main_back.setBackgroundColor(Color.parseColor("#1B4537"));
+                    Glide.with(view).load(R.raw.moon).into(sun);
+                    sun.setBackgroundColor(Color.parseColor("#1B4537"));
                     clickedSun++;
                 }
-                else if(clickedSun==2){//중->소
-                    main_back.setBackgroundColor(Color.parseColor("#323232"));
-                    clickedSun++;
-                }
-                else if(clickedSun==3){//소->꺼짐
-                    main_back.setBackgroundColor(Color.parseColor("#1C1C1C"));
-                    clickedSun++;
-                }
-                else if(clickedSun==4){//꺼짐->최대
-                    main_back.setBackgroundColor(Color.WHITE);
+
+                else if(clickedSun==2){//꺼짐->킴
+                    main_back.setBackgroundColor(Color.parseColor("#50A387"));
+                    Glide.with(view).load(R.raw.sun).into(sun);
+                    sun.setBackgroundColor(Color.parseColor("#50A387"));
                     clickedSun=1;
                 }
 

@@ -28,7 +28,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-    
+
 
     <EditText
         android:layout_width="match_parent"
@@ -42,7 +42,10 @@
         android:layout_marginRight="8dp" android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:visibility="invisible"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:maxLines="3"
+        android:maxLength="30"
+        />
 
 
     <LinearLayout
