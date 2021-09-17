@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:src="@drawable/logo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="식물의 상태는?"
+        android:textSize="20dp"
+        android:layout_margin="10dp"
+        />
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/radio"
+        >
+
+        <RadioButton
+            android:id="@+id/radio_button_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="좋음"
+            android:layout_marginEnd="10dp"
+            />
+
+        <RadioButton
+            android:id="@+id/radio_button_soso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="중간"
+            android:layout_marginEnd="10dp" />
+
+        <RadioButton
+            android:id="@+id/radio_button_bad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나쁨"
+            android:layout_marginEnd="10dp" />
+
+
+
+
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info"
+        android:layout_margin="5dp"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="완료"
+        android:layout_margin="12dp"
+        android:id="@+id/decide"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="취소"
+        android:layout_margin="12dp"
+        android:id="@+id/cancle"/>
+    </LinearLayout>
+</LinearLayout>

@@ -101,7 +101,7 @@ public class Fragment_Main extends Fragment {
 
                         name=user.getName();
 
-                        withday.setText(name+"와 함게한지\n 13일");
+                        withday.setText(name+"와 함께한지\n 13일");
                         Log.d("TAG",name);
 
                     } else {
