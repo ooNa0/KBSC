@@ -11,10 +11,11 @@
         <entry key="app/src/main/res/layout/dialog.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/main_fragment.xml" value="0.19630192502532928" />
         <entry key="app/src/main/res/layout/obser_fragment.xml" value="0.19630192502532928" />
+        <entry key="app/src/main/res/layout/start_app_activity.xml" value="0.19630192502532928" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

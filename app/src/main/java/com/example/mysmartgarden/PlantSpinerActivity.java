@@ -60,7 +60,7 @@ public class PlantSpinerActivity extends AppCompatActivity {
 
 
         // Spinner 객체 생성
-        final Spinner spiner = (Spinner) findViewById(R.id.spinner_plant);
+        final Spinner spiner = (Spinner) findViewById(R.id.ip_spinner_plant);
 
         // 인자로 어댑처 생성
         final String[] string = getResources().getStringArray(R.array.plant_array);
