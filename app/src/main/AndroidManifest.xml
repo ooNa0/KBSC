@@ -17,16 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
+
         <activity android:name=".PlantSpinerActivity"/>
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustUnspecified|adjustPan"/>
 
 
-=======
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".PlantSpinerActivity"/>
->>>>>>> 6a8d936ed730ab45620d424cb7c0ad1e889d4ed7
     </application>
 
 </manifest>

@@ -1,6 +1,6 @@
 package com.example.mysmartgarden;
 
-import androidx.work.Data;
+
 
 
 public class User {
