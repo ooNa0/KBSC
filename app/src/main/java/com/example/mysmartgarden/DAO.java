@@ -24,30 +24,6 @@ public class DAO {
 
     public DAO(){ }
 
-//    public boolean isUserExist(String DeviceID){
-//        Log.v("test", "함 수 들어가기 yes");
-//        //CollectionReference 는 파이어스토어의 컬렉션을 참조하는 객체다.
-//
-//        DocumentReference documentReference = db.collection("user").document(DeviceID);
-//        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Log.v("test", "DocumentSnapshot data: " + document.getData());
-//                    } else {
-//                        Log.v("test", "No such document");
-//                    }
-//                } else {
-//                    Log.v("test", "get failed with ", task.getException());
-//                }
-//            }
-//        });
-//    return true;
-//    }
-
-
     public void SaveUserID(String collectionName, String newDocumentName, String name, String species, String ip){
         DTO userData = new DTO(name, species, ip);
         DocumentReference newUser = db.collection(collectionName).document(newDocumentName);

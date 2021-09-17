@@ -16,16 +16,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:text="\n\n">
-
-    </TextView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="식물의 이름을 정해주세요!">
-=======
         android:text="식물의 종은 무엇인가요?">
 
     </TextView>
@@ -40,25 +30,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="\n\n식물의 이름을 정해주세요!(8글자 이내)">
->>>>>>> 6a8d936ed730ab45620d424cb7c0ad1e889d4ed7
 
     </TextView>
 
     <EditText
-<<<<<<< HEAD
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="기대중!">
-    </EditText>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="정했습니다!">
-
-    </Button>
-
-=======
         android:id="@+id/input_plant_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,31 +60,11 @@
         android:textColorHint="@color/pink"
         android:singleLine = "true">
     </EditText>
->>>>>>> 6a8d936ed730ab45620d424cb7c0ad1e889d4ed7
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="\n\n">
-<<<<<<< HEAD
-
-    </TextView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="식물의 종은 무엇인가요?">
-
-    </TextView>
-
-    <Spinner
-        android:id="@+id/spinner_plant"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:outlineSpotShadowColor="@color/black"
-        android:outlineAmbientShadowColor="@color/black"
-        android:spinnerMode="dropdown" />
-=======
     </TextView>
 
 
@@ -122,5 +77,4 @@
 
     </Button>
 
->>>>>>> 6a8d936ed730ab45620d424cb7c0ad1e889d4ed7
 </LinearLayout>
