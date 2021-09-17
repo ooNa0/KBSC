@@ -40,16 +40,16 @@ public class introActivity extends AppCompatActivity {
         //get()을 통해서 해당 컬렉션의 정보를 가져온다.
         productRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-<<<<<<< HEAD
-            public void run() {
+//<<<<<<< HEAD
+            /*public void run() {
                 // 처음에 이름이 비어있다면, 이름과 식물의 종을 정하는 페이지로 감
                 //Intent intent = new Intent (getApplicationContext(), PlantSpinerActivity.class);
                 //startActivity(intent);
 
                 //인트로 실행 후 바로 MainActivity로 넘어감.
                 Intent intent = new Intent (getApplicationContext(), MainActivity.class);
-               startActivity(intent);
-=======
+               startActivity(intent);*/
+//=======
             public void onComplete(Task<QuerySnapshot> task) {
                 //작업이 성공적으로 마쳤을때
                 isNewer = false;
@@ -74,7 +74,7 @@ public class introActivity extends AppCompatActivity {
                 }
                 intent.putExtra("state", "launch");
                 startActivity(intent);
->>>>>>> 6a8d936ed730ab45620d424cb7c0ad1e889d4ed7
+//>>>>>>> 6a8d936ed730ab45620d424cb7c0ad1e889d4ed7
                 finish();
 
             }
