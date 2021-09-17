@@ -24,63 +24,28 @@ public class DAO {
 
     public DAO(){ }
 
-    public boolean isUserExist(String DeviceID){
-        Log.v("test", "함 수 들어가기 yes");
-        //CollectionReference 는 파이어스토어의 컬렉션을 참조하는 객체다.
-
-        DocumentReference documentReference = db.collection("user").document(DeviceID);
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.v("test", "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.v("test", "No such document");
-                    }
-                } else {
-                    Log.v("test", "get failed with ", task.getException());
-                }
-            }
-        });
-
-
-//        CollectionReference productRef = db.collection("user");
-//        //get()을 통해서 해당 컬렉션의 정보를 가져온다.
-//        productRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//    public boolean isUserExist(String DeviceID){
+//        Log.v("test", "함 수 들어가기 yes");
+//        //CollectionReference 는 파이어스토어의 컬렉션을 참조하는 객체다.
+//
+//        DocumentReference documentReference = db.collection("user").document(DeviceID);
+//        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 //            @Override
-//            public boolean onComplete(Task<QuerySnapshot> task) {
-//                //작업이 성공적으로 마쳤을때
-//                userExistFlag = false;
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 //                if (task.isSuccessful()) {
-//                    //컬렉션 아래에 있는 모든 정보를 가져온다.
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        //document.getData() or document.getId() 등등 여러 방법으로
-//                        // 만약에 디바이스가 있다면, userExistFlag를 ture로
-//
-//                        Log.v("test", "===========!!!===========");
-//                        Log.v("test", DeviceID);
-//                        Log.v("test", document.getId());
-//
-//                        if((document.getId().toString()).equals(DeviceID)){
-//                           // Log.v("test", document.getData().toString());
-//                            Log.v("test", "?!?!?!?!?!");
-//                            userExistFlag = true;
-//                            return true;
-//                        }
-//
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.v("test", "DocumentSnapshot data: " + document.getData());
+//                    } else {
+//                        Log.v("test", "No such document");
 //                    }
-//                    //그렇지 않을때
-//                } else { }
-//                return userExistFlag;
+//                } else {
+//                    Log.v("test", "get failed with ", task.getException());
+//                }
 //            }
 //        });
-//        Log.v("test", "======================news?");
-//        Log.v("test", String.valueOf(userExistFlag));
-//        return userExistFlag;
-    return true;
-    }
+//    return true;
+//    }
 
 
     public void SaveUserID(String collectionName, String newDocumentName, String name, String species, String ip){
