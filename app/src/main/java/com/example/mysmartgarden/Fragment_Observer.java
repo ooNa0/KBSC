@@ -85,14 +85,14 @@ public class Fragment_Observer extends Fragment {
                 contextEditText.setVisibility(View.VISIBLE);
                 state_Btn.setVisibility(View.VISIBLE);
 
-                String dbname= String.format("%d - %d - %d",year,month+1,dayOfMonth);
+                String dbname= String.format("%d - %d - %d",year,month+1,dayOfMonth);//다이어리 시간 보여주는 텍스트뷰 설정
                 diaryTextView.setText(dbname);
 
-                String doname=String.format("%d%d%d",year,month+1,dayOfMonth);
+                String doname=String.format("%d%d%d",year,month+1,dayOfMonth);//db 문서 이름 정하기
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                DocumentReference docRef = db.collection("observation").document(doname);
+                DocumentReference docRef = db.collection("observation").document(doname);//불러오기
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
