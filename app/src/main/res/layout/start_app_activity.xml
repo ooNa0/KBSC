@@ -53,10 +53,10 @@
         android:id="@+id/input_ip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="000.000.0.0"
+        android:hint="000.000.000.000"
         android:inputType="number"
         android:digits="1234567890."
-        android:maxLength="11"
+        android:maxLength="15"
         android:textColorHint="@color/pink"
         android:singleLine = "true">
     </EditText>

@@ -79,6 +79,7 @@ public class PlantSpinerActivity extends AppCompatActivity {
         plant_ip = editText.getText().toString();
 
         // 데이터를 새로 입력받고, 문서로 데이터를 저장해준다.
+        DTO DTO = new DTO(plant_name, plant_species, plant_ip);
         DAO.SaveUserID("user", DeviceID, plant_name, plant_species, plant_ip);
 
         intent = new Intent(getApplicationContext(), MainActivity.class);
