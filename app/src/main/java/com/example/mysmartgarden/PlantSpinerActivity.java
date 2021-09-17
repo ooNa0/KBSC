@@ -1,10 +1,12 @@
 package com.example.mysmartgarden;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -22,42 +24,21 @@ import java.util.List;
 
 public class PlantSpinerActivity extends AppCompatActivity {
 
-    List<String> categories = new ArrayList<String>();
 
-    //파이어스토어에 접근하기 위한 객체를 생성한다.
-    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DAO DAO = new DAO();
+    List<String> categories = new ArrayList<String>();
+    private EditText editText;
+    private Spinner plant_spinner;
+    private String plant_species;
+    private String plant_name;
+    private String plant_ip;
+    private String DeviceID;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_app_activity);
-
-
-
-        //CollectionReference 는 파이어스토어의 컬렉션을 참조하는 객체다.
-        CollectionReference productRef = db.collection("user");
-
-        //get()을 통해서 해당 컬렉션의 정보를 가져온다.
-        productRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(Task<QuerySnapshot> task) {
-                //작업이 성공적으로 마쳤을때
-                if (task.isSuccessful()) {
-                    //컬렉션 아래에 있는 모든 정보를 가져온다.
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        //document.getData() or document.getId() 등등 여러 방법으로
-                        //데이터를 가져올 수 있다.
-                        Log.v("test", document.getData().toString());
-                        Log.v("test", "yessss");
-
-                    }
-                    //그렇지 않을때
-                } else {
-                    Log.v("test", "nonono");
-                }
-            }
-        });
-
 
         // Spinner 객체 생성
         final Spinner spiner = (Spinner) findViewById(R.id.ip_spinner_plant);
@@ -72,7 +53,7 @@ public class PlantSpinerActivity extends AppCompatActivity {
         spiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Selected Country: "+ spiner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Selected : "+ spiner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -80,6 +61,28 @@ public class PlantSpinerActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    //onclick event 메서드
+    public void onclick(View view){
+
+        DeviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        plant_spinner = (Spinner)findViewById(R.id.ip_spinner_plant);
+        plant_species = plant_spinner.getSelectedItem().toString();
+
+        editText = (EditText)findViewById(R.id.input_plant_name);
+        plant_name = editText.getText().toString();
+
+        editText = (EditText)findViewById(R.id.input_ip);
+        plant_ip = editText.getText().toString();
+
+        // 데이터를 새로 입력받고, 문서로 데이터를 저장해준다.
+        DTO DTO = new DTO(plant_name, plant_species, plant_ip);
+        DAO.SaveUserID("user", DeviceID, plant_name, plant_species, plant_ip);
+
+        intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
