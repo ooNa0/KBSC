@@ -16,6 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:text="\n\n">
 
     </TextView>
@@ -24,10 +25,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="식물의 이름을 정해주세요!">
+=======
+        android:text="식물의 종은 무엇인가요?">
+
+    </TextView>
+
+    <Spinner
+        android:id="@+id/ip_spinner_plant"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\n\n식물의 이름을 정해주세요!(8글자 이내)">
+>>>>>>> 6a8d936ed730ab45620d424cb7c0ad1e889d4ed7
 
     </TextView>
 
     <EditText
+<<<<<<< HEAD
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="기대중!">
@@ -40,11 +58,40 @@
 
     </Button>
 
+=======
+        android:id="@+id/input_plant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="기대중!"
+        android:maxLength="8"
+        android:textColorHint="@color/pink"
+        android:singleLine = "true">
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\n\n할당받은 아이피(ip) 주소를 입력해주세요">
+    </TextView>
+
+    <EditText
+        android:id="@+id/input_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="000.000.000.000"
+        android:inputType="number"
+        android:digits="1234567890."
+        android:maxLength="15"
+        android:textColorHint="@color/pink"
+        android:singleLine = "true">
+    </EditText>
+>>>>>>> 6a8d936ed730ab45620d424cb7c0ad1e889d4ed7
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="\n\n">
+<<<<<<< HEAD
 
     </TextView>
 
@@ -62,4 +109,18 @@
         android:outlineSpotShadowColor="@color/black"
         android:outlineAmbientShadowColor="@color/black"
         android:spinnerMode="dropdown" />
+=======
+    </TextView>
+
+
+    <Button
+        android:id="@+id/start_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작하기"
+        android:onClick="onclick">
+
+    </Button>
+
+>>>>>>> 6a8d936ed730ab45620d424cb7c0ad1e889d4ed7
 </LinearLayout>
