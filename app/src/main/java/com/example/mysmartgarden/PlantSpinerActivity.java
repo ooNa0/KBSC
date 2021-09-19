@@ -26,6 +26,7 @@ public class PlantSpinerActivity extends AppCompatActivity {
 
 
     private DAO DAO = new DAO();
+    Singleton userSingleton =Singleton.getInstance();
     List<String> categories = new ArrayList<String>();
     private EditText editText;
     private Spinner plant_spinner;
@@ -85,6 +86,11 @@ public class PlantSpinerActivity extends AppCompatActivity {
         intent.putExtra("name", plant_name);
         intent.putExtra("species", plant_species);
         intent.putExtra("ip", plant_ip);
+
+        userSingleton.setName(plant_name);
+        userSingleton.setIp(plant_ip);
+        userSingleton.setSpecies(plant_species);
+
         startActivity(intent);
         finish();
     }

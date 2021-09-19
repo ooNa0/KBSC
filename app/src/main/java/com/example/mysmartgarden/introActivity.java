@@ -23,6 +23,7 @@ import java.text.DecimalFormat;
 public class introActivity extends AppCompatActivity {
 
     private DAO DAO = new DAO();
+    Singleton userSingleton = Singleton.getInstance();//싱글톤 객체 생성
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private boolean isNewer;
     private String DeviceID;
@@ -70,6 +71,9 @@ public class introActivity extends AppCompatActivity {
                     intent.putExtra("plant_name", plantName);
                     intent.putExtra("plant_species", plantSpecies);
                     intent.putExtra("plant_ip", plantIp);
+                    userSingleton.setName(plantName);
+                    userSingleton.setIp(plantIp);
+                    userSingleton.setSpecies(plantSpecies);
                 }
                 startActivity(intent);
                 finish();
