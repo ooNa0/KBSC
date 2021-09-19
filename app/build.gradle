@@ -1,11 +1,14 @@
 plugins {
     //id 'com.android.application'
     id 'com.android.application'
-
     id 'com.google.gms.google-services'
 }
 
 android {
+    viewBinding {
+        enabled = true
+    }
+
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
