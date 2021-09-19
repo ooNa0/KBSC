@@ -4,6 +4,7 @@ public class Singleton {
     private String name;
     private String ip;
     private String species;
+    private String device;
 
     private Singleton(){
 
@@ -43,5 +44,12 @@ public class Singleton {
         this.species=species;
     }
 
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device){
+        this.device=device;
+    }
 
 }

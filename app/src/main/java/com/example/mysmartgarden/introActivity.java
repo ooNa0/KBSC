@@ -74,6 +74,7 @@ public class introActivity extends AppCompatActivity {
                     userSingleton.setName(plantName);
                     userSingleton.setIp(plantIp);
                     userSingleton.setSpecies(plantSpecies);
+                    userSingleton.setDevice(DeviceID);
                 }
                 startActivity(intent);
                 finish();

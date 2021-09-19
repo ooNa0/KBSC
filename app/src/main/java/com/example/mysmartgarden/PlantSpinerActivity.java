@@ -79,7 +79,7 @@ public class PlantSpinerActivity extends AppCompatActivity {
         plant_ip = editText.getText().toString();
 
         // 데이터를 새로 입력받고, 문서로 데이터를 저장해준다.
-        DTO DTO = new DTO(plant_name, plant_species, plant_ip);
+        DTO DTO = new DTO(DeviceID,plant_name, plant_species, plant_ip);
         DAO.SaveUserID("user", DeviceID, plant_name, plant_species, plant_ip);
 
         intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -87,6 +87,7 @@ public class PlantSpinerActivity extends AppCompatActivity {
         intent.putExtra("species", plant_species);
         intent.putExtra("ip", plant_ip);
 
+        userSingleton.setDevice(DeviceID);
         userSingleton.setName(plant_name);
         userSingleton.setIp(plant_ip);
         userSingleton.setSpecies(plant_species);

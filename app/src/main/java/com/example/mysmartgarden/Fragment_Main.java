@@ -95,36 +95,6 @@ public class Fragment_Main extends Fragment {
 
         withday.setText(userSingleton.getName()+"와 함께한지\n 13일째");
 
-        /*DocumentReference docRef = db.collection("user").document("RWX5pwrnPCqHsxiLGPEe");//회원정보 불러오
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {//있으면
-                        User user = document.toObject(User.class);
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-
-
-
-                        name=user.getName();//일름받고 설정해주
-                        long day = 0;
-                        try {
-                            day=dayCalculator(user.getDate());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        withday.setText(name+"와 함께한지\n "+day+"일");
-                        Log.d("TAG",name);
-
-                    } else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });*/
 
         clickedSun=1;
         main_back=view.findViewById(R.id.main_back);//맨뒤 배경
