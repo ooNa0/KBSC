@@ -1,6 +1,7 @@
 package com.example.mysmartgarden;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,7 +9,9 @@ import androidx.core.view.ViewCompat;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
     int clickedSun;
     private boolean _isBtnDown;
 
+    // 데이터 수신 하겠습니다~
+    private Intent intent;
+    private String plantName;
+    private String plantSpecies;
+    private String plantIp;
+
+    // 메인 화면에 이름 넣기
+    private TextView inputPlantName;
+
     FirebaseFirestore db;
 
     Toolbar toolbar;
@@ -58,18 +70,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        intent = getIntent(); // 데이터 수신
 
-        /*toolbar = findViewById(R.id.toolbar);
+        plantName = intent.getExtras().getString("plant_name");
+        plantSpecies = intent.getExtras().getString("plant_species");
+        plantIp = intent.getExtras().getString("plant_ip");
+
+        /*
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionBar.setDisplayHomeAsUpEnabled(true);
-
          */
 
-
-
+        inputPlantName = (TextView)findViewById(R.id.HelloPlantname);
+        inputPlantName.setText("왜 안되나요~");
 
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
@@ -107,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
 
         mPager.setPageTransformer(new ViewPager2.PageTransformer() {
+            @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void transformPage(@NonNull View page, float position) {
                 float myOffset = position ;

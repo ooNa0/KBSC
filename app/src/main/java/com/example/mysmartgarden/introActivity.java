@@ -28,6 +28,9 @@ public class introActivity extends AppCompatActivity {
     private String DeviceID;
     private Intent intent;
 
+    private String plantName;
+    private String plantSpecies;
+    private String plantIp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +51,26 @@ public class introActivity extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         if ((document.getId().toString()).equals(DeviceID)) {
                             isNewer = true;
+                            plantName = document.get("name").toString();
+                            plantSpecies = document.get("species").toString();
+                            plantIp = document.get("ip").toString();
+
                         }
                     }
                 }
 
                 // ture라면 DeviceID가 이미 있는 것, false라면 없는 것
-                if (!isNewer) { // 만약에 디바이스가 처음 등록하는 것이라면?
+                if (!isNewer) {
                     // 처음에 이름이 비어있다면, 이름과 식물의 종을 정하는 페이지로 감
                     intent = new Intent(getApplicationContext(), PlantSpinerActivity.class);
-                    // this -> Activity context
                     // getApplicationContext() -> Application context
                 } else {
                     // 인트로 실행 후 바로 MainActivity로 넘어감.
                     intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("plant_name", plantName);
+                    intent.putExtra("plant_species", plantSpecies);
+                    intent.putExtra("plant_ip", plantIp);
                 }
-                intent.putExtra("state", "launch");
                 startActivity(intent);
                 finish();
             }
