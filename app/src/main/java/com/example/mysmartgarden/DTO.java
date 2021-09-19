@@ -5,6 +5,8 @@ public class DTO {
     private String species;
     private String ip;
 
+    public DTO(){ }
+
     // 생성자 초기화
     public DTO(String name, String species, String ip) {
         this.name = name;
