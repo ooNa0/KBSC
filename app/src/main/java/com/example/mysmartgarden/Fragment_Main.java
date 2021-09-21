@@ -55,22 +55,22 @@ public class Fragment_Main extends Fragment {
 
     WeatherView weatherView;//뒤에 물 주는 배경
 
-    TextView withday,notice,info1,info2,info3,info4;
+    TextView notice,info1,info2,info3,info4;
+
+    // 값 xml 파일 값 settext를 위한 빌드업
+    TextView plantName;
+    TextView withday;
 
     List<User> list;
 
     String name,ip,species;
 
-
     public Fragment_Main(){
 
     }
 
-
-    // Store instance variables ba
-    // sed on arguments passed
     @Override
-    public void onCreate(Bundle savedInstanceState) {//몰라 무시해
+    public void onCreate(Bundle savedInstanceState) { //몰라 무시해 -> 네?ㅋㅋㅋㅋㅋㅋㅋㅋㅋ
         super.onCreate(savedInstanceState);
 
     }
@@ -91,8 +91,11 @@ public class Fragment_Main extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
-        withday=view.findViewById(R.id.withday);//함께한날
-        withday.setText(userSingleton.getName()+"와 함께한지\n 13일째");
+        withday=view.findViewById(R.id.day);// 함께한 일자
+        plantName=view.findViewById(R.id.HelloPlantname);// 이름
+
+        withday.setText("13"); // 이거 처음에 intro에서 입력한 날짜 타임스탬프로 찍어서 계산해주면 되려나
+        plantName.setText(userSingleton.getName());
 
         /*
         DocumentReference docRef = db.collection("user").document("RWX5pwrnPCqHsxiLGPEe");//회원정보 불러오
@@ -230,7 +233,7 @@ public class Fragment_Main extends Fragment {
 
     public long dayCalculator(String date1) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); //수정가능 // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
-        Date FirstDate = format.parse(date1); //지정한날(금연 시작날)
+        Date FirstDate = format.parse(date1); //지정한날(금연!!!!!!!!!!!!!!!!!!!! 시작날)
         long now =System.currentTimeMillis();
         Date SecondDate= new Date(now);//현재 날짜 // Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다. // 연산결과 -950400000. long type 으로 return 된다.
         String getDay=format.format(SecondDate);
