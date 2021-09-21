@@ -49,10 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private String plantSpecies;
     private String plantIp;
 
-    // 메인 화면에 이름 넣기
-    private TextView inputPlantName;
-
-    FirebaseFirestore db;
+    // 싱글톤
+    private Singleton userSingleton = Singleton.getInstance();
 
     Toolbar toolbar;
     ActionBar actionBar;
@@ -70,12 +68,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        intent = getIntent(); // 데이터 수신
-
-        plantName = intent.getExtras().getString("plant_name");
-        plantSpecies = intent.getExtras().getString("plant_species");
-        plantIp = intent.getExtras().getString("plant_ip");
-
         /*
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionBar.setDisplayHomeAsUpEnabled(true);
          */
-
-        /*inputPlantName = (TextView)findViewById(R.id.HelloPlantname);
-        inputPlantName.setText("왜 안되나요~");*/
 
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
@@ -119,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
         final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
         final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
 
@@ -139,10 +127,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
     }
 
 }

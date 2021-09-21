@@ -82,16 +82,12 @@ public class PlantSpinerActivity extends AppCompatActivity {
         DTO DTO = new DTO(DeviceID,plant_name, plant_species, plant_ip);
         DAO.SaveUserID("user", DeviceID, plant_name, plant_species, plant_ip);
 
-        intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("name", plant_name);
-        intent.putExtra("species", plant_species);
-        intent.putExtra("ip", plant_ip);
-
         userSingleton.setDevice(DeviceID);
         userSingleton.setName(plant_name);
         userSingleton.setIp(plant_ip);
         userSingleton.setSpecies(plant_species);
 
+        intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
     }

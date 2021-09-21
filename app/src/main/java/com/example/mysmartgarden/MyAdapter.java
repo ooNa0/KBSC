@@ -18,12 +18,9 @@ public class MyAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         int index = getRealPosition(position);
-
         if(index==0) return new Fragment_Observer();
         else if(index==1) return new Fragment_Main();
         else return new Fragment_Info();
-
-
     }
 
     @Override

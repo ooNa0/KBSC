@@ -68,9 +68,6 @@ public class introActivity extends AppCompatActivity {
                 } else {
                     // 인트로 실행 후 바로 MainActivity로 넘어감.
                     intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("plant_name", plantName);
-                    intent.putExtra("plant_species", plantSpecies);
-                    intent.putExtra("plant_ip", plantIp);
                     userSingleton.setName(plantName);
                     userSingleton.setIp(plantIp);
                     userSingleton.setSpecies(plantSpecies);

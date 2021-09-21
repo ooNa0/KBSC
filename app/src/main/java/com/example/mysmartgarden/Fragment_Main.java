@@ -63,8 +63,6 @@ public class Fragment_Main extends Fragment {
 
     List<User> list;
 
-    String name,ip,species;
-
     public Fragment_Main(){
 
     }
@@ -137,7 +135,7 @@ public class Fragment_Main extends Fragment {
 
         weatherView = view.findViewById(R.id.weather_view);
 
-        plant.setOnTouchListener(onBtnTouchListener);//물주는거 관련 버튼 리스너
+        plant.setOnTouchListener(onBtnTouchListener); // 물주는거 관련 버튼 리스너
 
         sun.setOnClickListener(new View.OnClickListener(){//태양 클릭 시
             @SuppressLint("ResourceAsColor")
@@ -161,9 +159,6 @@ public class Fragment_Main extends Fragment {
 
 
         });
-
-
-
         notice=view.findViewById(R.id.notice);//알림
         info1=view.findViewById(R.id.info1);//토양습도
         info2=view.findViewById(R.id.info2);//습도
