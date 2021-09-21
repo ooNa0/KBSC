@@ -1,8 +1,5 @@
 package com.example.mysmartgarden;
 
-
-
-
 public class User {
 
     private String ip;
@@ -18,8 +15,6 @@ public class User {
         this.species=species;
         this.date=date;
     }
-
-
 
     public String getIp() {
         return ip;

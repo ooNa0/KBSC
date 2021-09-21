@@ -6,9 +6,7 @@ public class Singleton {
     private String species;
     private String device;
 
-    private Singleton(){
-
-    }
+    private Singleton(){ }
 
     public static class LazyHolder{
         public static final Singleton instance = new Singleton();
@@ -16,7 +14,7 @@ public class Singleton {
 
     //싱글톤 패턴 구현
     public static Singleton getInstance(){
-        return  LazyHolder.instance;
+        return LazyHolder.instance;
     }
 
     public String getName(){

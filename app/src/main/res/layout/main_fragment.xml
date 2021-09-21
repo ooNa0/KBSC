@@ -25,7 +25,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -81,31 +82,6 @@
                 android:orientation="horizontal"
                 >
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-<!--&lt;!&ndash;                    <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:id="@+id/name"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:textSize="30dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:text="00"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:layout_marginLeft="30dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:layout_marginTop="30dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:textColor="#E4E4A4">&ndash;&gt;-->
-<!--&lt;!&ndash;                    </TextView>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:id="@+id/withday"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:textSize="25dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:text="(이)와 함께한지"&ndash;&gt;-->
-<!--&lt;!&ndash;                        android:layout_marginTop="30dp">&ndash;&gt;-->
-<!--&lt;!&ndash;                    </TextView>&ndash;&gt;-->
-<!--                </LinearLayout>-->
-
-
             </LinearLayout>
 
             <FrameLayout
@@ -122,7 +98,6 @@
                     android:src="@drawable/eclipse_l"
                     android:background="@drawable/eclipse_l"
                 />
-
             </FrameLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -132,8 +107,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="20dp"
-                android:layout_margin="10dp"
-                android:textColor="#E4E4A4"/>
+                android:layout_margin="10dp"/>
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
