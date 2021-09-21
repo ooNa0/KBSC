@@ -17,36 +17,19 @@ public class Singleton {
         return LazyHolder.instance;
     }
 
-    public String getName(){
-        return name;
-    }
+    public String getName(){ return name; }
 
-    public void setName(String name){
-        this.name=name;
-    }
+    public void setName(String name){ this.name=name; }
 
-    public String getIp(){
-        return ip;
-    }
+    public String getIp(){ return ip; }
 
-    public void setIp(String ip){
-        this.ip=ip;
-    }
+    public void setIp(String ip){ this.ip=ip; }
 
-    public String getSpecies() {
-        return species;
-    }
+    public String getSpecies() { return species; }
 
-    public void setSpecies(String species){
-        this.species=species;
-    }
+    public void setSpecies(String species){ this.species=species; }
 
-    public String getDevice() {
-        return device;
-    }
+    public String getDevice() { return device; }
 
-    public void setDevice(String device){
-        this.device=device;
-    }
-
+    public void setDevice(String device){ this.device=device; }
 }
