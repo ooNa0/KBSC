@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,6 +53,7 @@ public class Fragment_Observer extends Fragment {
     public Button cha_Btn,del_Btn,save_Btn,state_Btn;
     public TextView diaryTextView;
     public EditText contextEditText;
+    Singleton userSingleton = Singleton.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class Fragment_Observer extends Fragment {
         View view = inflater.inflate(R.layout.obser_fragment,container,false);
         return view;
     }
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstancdState){
         super.onViewCreated(view,savedInstancdState);
@@ -92,7 +96,7 @@ public class Fragment_Observer extends Fragment {
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                DocumentReference docRef = db.collection("observation").document(doname);//불러오기
+                DocumentReference docRef = db.collection("user").document(userSingleton.getDevice()).collection("observation").document(doname);//불러오기
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -232,11 +236,11 @@ public class Fragment_Observer extends Fragment {
                     obser.put("state",state);
                 }
 
-                obser.put("name","NA0");
+                obser.put("name",userSingleton.getName());
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                db.collection("observation").document(""+nYear+nMonth+nDay).set(obser).addOnSuccessListener(new OnSuccessListener<Void>() { // 제대로 인서트 되면 함수의 주소를 가지고 있다가 넘겨줌.
+                db.collection("user").document(userSingleton.getDevice()).collection("observation").document(""+nYear+nMonth+nDay).set(obser).addOnSuccessListener(new OnSuccessListener<Void>() { // 제대로 인서트 되면 함수의 주소를 가지고 있다가 넘겨줌.
                     @Override
                     public void onSuccess(Void aVoid) {
                         // 로그인 성공시 intent로 화면전환
@@ -342,11 +346,11 @@ public class Fragment_Observer extends Fragment {
                 else{
                     obser.put("state",state);
                 }
-                obser.put("name","NA0");
+                obser.put("name",userSingleton.getName());
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                db.collection("observation").document(""+eYear+eMonth+eDay).set(obser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("user").document(userSingleton.getDevice()).collection("observation").document(""+eYear+eMonth+eDay).set(obser).addOnSuccessListener(new OnSuccessListener<Void>() {
 
                     public void onSuccess(Void aVoid) {
                         // 로그인 성공시 intent로 화면전환
@@ -378,7 +382,7 @@ public class Fragment_Observer extends Fragment {
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                db.collection("observation").document(""+eYear+eMonth+eDay)
+                db.collection("user").document(userSingleton.getDevice()).collection("observation").document(""+eYear+eMonth+eDay)
                         .delete()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

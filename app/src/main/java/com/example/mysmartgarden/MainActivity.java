@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
          */
 
-        inputPlantName = (TextView)findViewById(R.id.HelloPlantname);
-        inputPlantName.setText("왜 안되나요~");
+        /*inputPlantName = (TextView)findViewById(R.id.HelloPlantname);
+        inputPlantName.setText("왜 안되나요~");*/
 
         //ViewPager2
         mPager = findViewById(R.id.viewpager);

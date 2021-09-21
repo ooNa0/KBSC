@@ -46,6 +46,7 @@ public class Fragment_Main extends Fragment {
     private boolean _isBtnDown;
     LinearLayout main_back;
 
+    Singleton userSingleton = Singleton.getInstance();
 
     FirebaseFirestore db;
 
@@ -91,7 +92,9 @@ public class Fragment_Main extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         withday=view.findViewById(R.id.withday);//함께한날
+        withday.setText(userSingleton.getName()+"와 함께한지\n 13일째");
 
+        /*
         DocumentReference docRef = db.collection("user").document("RWX5pwrnPCqHsxiLGPEe");//회원정보 불러오
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -101,8 +104,6 @@ public class Fragment_Main extends Fragment {
                     if (document.exists()) {//있으면
                         User user = document.toObject(User.class);
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-
-
 
                         name=user.getName();//일름받고 설정해주
                         long day = 0;
@@ -121,7 +122,7 @@ public class Fragment_Main extends Fragment {
                     Log.d("TAG", "get failed with ", task.getException());
                 }
             }
-        });
+        });*/
 
         clickedSun=1;
         main_back=view.findViewById(R.id.main_back);//맨뒤 배경

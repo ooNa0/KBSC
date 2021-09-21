@@ -25,7 +25,7 @@ public class DAO {
     public DAO(){ }
 
     public void SaveUserID(String collectionName, String newDocumentName, String name, String species, String ip){
-        DTO userData = new DTO(name, species, ip);
+        DTO userData = new DTO(newDocumentName, name, species, ip);
         DocumentReference newUser = db.collection(collectionName).document(newDocumentName);
         newUser.set(userData);
     }
