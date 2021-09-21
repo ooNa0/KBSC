@@ -57,7 +57,7 @@ public class Fragment_Main extends Fragment {
 
     TextView withday,notice,info1,info2,info3,info4;
 
-    List<User> list;
+
 
     String name,ip,species;
 
@@ -87,13 +87,15 @@ public class Fragment_Main extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstancdState){//왠만한건 다여기서함
         super.onViewCreated(view,savedInstancdState);
 
-        list=new ArrayList<>();
+
 
         db = FirebaseFirestore.getInstance();
 
         withday=view.findViewById(R.id.withday);//함께한날
 
-        withday.setText(userSingleton.getName()+"와 함께한지\n 13일째");
+        long day=dayCalculator("2021-01-02");
+
+        withday.setText(userSingleton.getName()+"와 함께한지\n "+day+"일째");
 
 
         clickedSun=1;
@@ -200,21 +202,38 @@ public class Fragment_Main extends Fragment {
         }
     };
 
-    public long dayCalculator(String date1) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); //수정가능 // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
-        Date FirstDate = format.parse(date1); //지정한날(금연 시작날)
-        long now =System.currentTimeMillis();
-        Date SecondDate= new Date(now);//현재 날짜 // Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다. // 연산결과 -950400000. long type 으로 return 된다.
-        String getDay=format.format(SecondDate);
-        Date mDate=format.parse(getDay);
+    public long dayCalculator(String date1){
 
-        long calDate = mDate.getTime() - FirstDate.getTime();
-        long lastCalDate = calDate/10; //연산 후에는 0이 하나 더 추가되어, 이렇게 10으로 나누어 준다.
-        Log.d("칼데이트", String.valueOf(FirstDate));
-        Log.d("칼데이트", String.valueOf(SecondDate));
-        Log.d("칼데이트", String.valueOf(calDate));
-        Log.d("칼데이트", String.valueOf(lastCalDate));
-        return lastCalDate;
+        long now =System.currentTimeMillis();
+       String date2= "2021-09-21";
+
+        try{ // String Type을 Date Type으로 캐스팅하면서 생기는 예외로 인해 여기서 예외처리 해주지 않으면 컴파일러에서 에러가 발생해서 컴파일을 할 수 없다.
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+            Date FirstDate = format.parse(date2);
+            Date SecondDate = format.parse(date1);
+
+            // Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다.
+            // 연산결과 -950400000. long type 으로 return 된다.
+            long calDate = FirstDate.getTime() - SecondDate.getTime();
+
+            // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다.
+            // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
+            long calDateDays = calDate / ( 24*60*60*1000);
+
+            calDateDays = Math.abs(calDateDays);
+
+            System.out.println("두 날짜의 날짜 차이: "+calDateDays);
+
+            return calDateDays;
+        }
+        catch(ParseException e)
+        {
+            return 0;
+            // 예외 처리
+        }
+
+
 
 
     }
