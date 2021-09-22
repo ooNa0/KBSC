@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:hint="기대중!"
         android:maxLength="8"
+        android:privateImeOptions="defaultInputmode=korean"
         android:textColorHint="@color/pink"
         android:singleLine = "true">
     </EditText>
