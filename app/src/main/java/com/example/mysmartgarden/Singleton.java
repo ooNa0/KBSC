@@ -5,6 +5,7 @@ public class Singleton {
     private String ip;
     private String species;
     private String device;
+    private String entry;
 
     private Singleton(){
 
@@ -52,4 +53,10 @@ public class Singleton {
         this.device=device;
     }
 
+    public String getEntry(){
+        return entry;
+    }
+    public void setEntry(String entry){
+        this.entry=entry;
+    }
 }

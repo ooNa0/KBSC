@@ -76,17 +76,7 @@ public class MainActivity extends AppCompatActivity {
         plantSpecies = intent.getExtras().getString("plant_species");
         plantIp = intent.getExtras().getString("plant_ip");
 
-        /*
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
-        actionBar.setDisplayHomeAsUpEnabled(true);
-         */
 
-        /*inputPlantName = (TextView)findViewById(R.id.HelloPlantname);
-        inputPlantName.setText("왜 안되나요~");*/
 
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
