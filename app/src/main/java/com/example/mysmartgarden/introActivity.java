@@ -32,6 +32,7 @@ public class introActivity extends AppCompatActivity {
     private String plantName;
     private String plantSpecies;
     private String plantIp;
+    private String entryTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class introActivity extends AppCompatActivity {
                             plantName = document.get("name").toString();
                             plantSpecies = document.get("species").toString();
                             plantIp = document.get("ip").toString();
-
+                            entryTime=document.get("entry").toString();
                         }
                     }
                 }
@@ -72,6 +73,7 @@ public class introActivity extends AppCompatActivity {
                     userSingleton.setIp(plantIp);
                     userSingleton.setSpecies(plantSpecies);
                     userSingleton.setDevice(DeviceID);
+                    userSingleton.setEntry(entryTime);
                 }
                 startActivity(intent);
                 finish();

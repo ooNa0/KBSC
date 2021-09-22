@@ -5,6 +5,10 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -34,6 +38,7 @@ public class PlantSpinerActivity extends AppCompatActivity {
     private String plant_name;
     private String plant_ip;
     private String DeviceID;
+    private String entryTime;
     private Intent intent;
 
     @Override
@@ -78,14 +83,22 @@ public class PlantSpinerActivity extends AppCompatActivity {
         editText = (EditText)findViewById(R.id.input_ip);
         plant_ip = editText.getText().toString();
 
+        Calendar cal = Calendar.getInstance();//가입날짜 만들기
+        Date nowDate = cal.getTime();
+        SimpleDateFormat dataformat = new SimpleDateFormat("yyyy/MM/dd");
+
+        String now = dataformat.format(nowDate);
+        entryTime=now;
+
         // 데이터를 새로 입력받고, 문서로 데이터를 저장해준다.
-        DTO DTO = new DTO(DeviceID,plant_name, plant_species, plant_ip);
-        DAO.SaveUserID("user", DeviceID, plant_name, plant_species, plant_ip);
+        DTO DTO = new DTO(DeviceID,plant_name, plant_species, plant_ip, entryTime);
+        DAO.SaveUserID("user", DeviceID, plant_name, plant_species, plant_ip,entryTime);
 
         userSingleton.setDevice(DeviceID);
         userSingleton.setName(plant_name);
         userSingleton.setIp(plant_ip);
         userSingleton.setSpecies(plant_species);
+        userSingleton.setEntry(entryTime);
 
         intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);

@@ -5,15 +5,17 @@ public class DTO {
     private String species;
     private String ip;
     private String deviceID;
+    private String entry;
 
     public DTO(){ }
 
     // 생성자 초기화
-    public DTO(String deviceID,String name, String species, String ip) {
+    public DTO(String deviceID,String name, String species, String ip,String entry) {
         this.deviceID=deviceID;
         this.name = name;
         this.species = species;
         this.ip = ip;
+        this.entry=entry;
     }
 
     public String getName() {
@@ -39,4 +41,8 @@ public class DTO {
     public String getDeviceID(){return deviceID;}
 
     public void setDeviceID(String deviceID){this.deviceID=deviceID;}
+
+    public String getEntry(){return entry;}
+
+    public void setEntry(String entry){this.entry=entry;}
 }

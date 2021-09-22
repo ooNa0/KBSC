@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import java.util.Calendar;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -61,8 +62,6 @@ public class Fragment_Main extends Fragment {
     TextView plantName;
     TextView withday;
 
-    List<User> list;
-
     public Fragment_Main(){
 
     }
@@ -85,12 +84,11 @@ public class Fragment_Main extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstancdState){//왠만한건 다여기서함
         super.onViewCreated(view,savedInstancdState);
 
-        list=new ArrayList<>();
-
         db = FirebaseFirestore.getInstance();
 
         withday=view.findViewById(R.id.day);// 함께한 일자
         plantName=view.findViewById(R.id.HelloPlantname);// 이름
+        long day=dayCalculator(userSingleton.getEntry());
 
         withday.setText("13"); // 이거 처음에 intro에서 입력한 날짜 타임스탬프로 찍어서 계산해주면 되려나
         plantName.setText(userSingleton.getName());
@@ -226,26 +224,28 @@ public class Fragment_Main extends Fragment {
         }
     };
 
-    public long dayCalculator(String date1) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); //수정가능 // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
-        Date FirstDate = format.parse(date1); //지정한날(금연!!!!!!!!!!!!!!!!!!!! 시작날)
-        long now =System.currentTimeMillis();
-        Date SecondDate= new Date(now);//현재 날짜 // Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다. // 연산결과 -950400000. long type 으로 return 된다.
-        String getDay=format.format(SecondDate);
-        Date mDate=format.parse(getDay);
+    public long dayCalculator(String date2){
+        Calendar cal = Calendar.getInstance();
+        Date nowDate = cal.getTime();
+        SimpleDateFormat dataformat = new SimpleDateFormat("yyyy/MM/dd");
+        String date1 = dataformat.format(nowDate); //날짜1
+        Date format1 = null;
+        try {
+            format1 = new SimpleDateFormat("yyyy/MM/dd").parse(date1);
+            Date format2 = new SimpleDateFormat("yyyy/MM/dd").parse(date2);
 
-        long calDate = mDate.getTime() - FirstDate.getTime();
-        long lastCalDate = calDate/10; //연산 후에는 0이 하나 더 추가되어, 이렇게 10으로 나누어 준다.
-        Log.d("칼데이트", String.valueOf(FirstDate));
-        Log.d("칼데이트", String.valueOf(SecondDate));
-        Log.d("칼데이트", String.valueOf(calDate));
-        Log.d("칼데이트", String.valueOf(lastCalDate));
-        return lastCalDate;
+            long diffSec = (format1.getTime() - format2.getTime()) / 1000; //초 차이
 
+            long diffDays = diffSec / (24*60*60); //일자수 차이
 
+            System.out.println(diffSec + "초 차이");
+            System.out.println(diffDays + "일 차이");
+
+            return diffDays;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
-
-
-
 }
 
