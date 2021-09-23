@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F9F9D0">
+    android:background="#E4E4A4">
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,8 +74,10 @@
     <Button
         android:text="저장"
         android:layout_width="70dp"
+
         android:layout_height="70dp"
         android:id="@+id/save_Btn"
+
         android:visibility="invisible"
         android:layout_margin="20dp"
         android:layout_gravity="center"

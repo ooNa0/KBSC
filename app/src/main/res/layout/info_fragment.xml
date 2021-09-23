@@ -1,14 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@color/white">
+    android:gravity="center|left"
+    android:background="#F9F9D0"
+    android:orientation="vertical">
 
     <ImageView
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="273dp"
+        android:layout_gravity="top"
+        android:src="@drawable/pinkstar" />
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo"
-        android:layout_gravity="center"
-        />
+        android:text="피토니아 핑크스타"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/white"
+        android:background="#50A387"
+        android:textSize="25dp"
+        android:layout_gravity="left">
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#50A387"
+        android:paddingLeft="15dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/white"
+        android:text="Fittonia verschaffeltii 'Pink Star'"
+        android:layout_gravity="left">
+    </TextView>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        android:paddingBottom="20dp"
+        android:padding="5dp"></View>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="17dp"
+        android:text=" 물💧"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="- 건조에 약하며, 물을 좋아한다.\n- 생장기인 5~7월에 3일 주기로 겉흙 상태 체크하여 과습되지 않도록 유의한다."
+        android:textSize="13dp"></TextView>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/gray"
+        android:padding="5dp"></View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="17dp"
+        android:text=" 빛과 바람🌤️"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="- 통풍이 잘 되고, 빛이 직접 쬐지 않는 밝은 장소에서 기른다.\n- 빛이 너무 없는 곳에서는 줄기가 웃자라거나 잎의 색깔이 변한다."
+        android:textSize="13dp"></TextView>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/gray"
+        android:padding="5dp"></View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="17dp"
+        android:text=" 온도 및 습도🌡️"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="- 최적 온도 15~25℃( 겨울철, 낮은 온도에 방치하면 잎이 마른다. )\n- 밝은 그늘의 다습한 환경을 좋아한다."
+        android:textSize="13dp"></TextView>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/gray"
+        android:padding="5dp"></View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="17dp"
+        android:text=" 병충해🤒"
+       android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="- 건조 환경에서는 깍지벌레가 생기므로, 자주 분모해준다.\n- 과습으로 인한 뿌리썩음병이 생길 수 있다.\n- 성장기 고온 건조 환경에서는 진딧물이 생길 수 있다."
+        android:textSize="13dp"></TextView>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginVertical="10dp"
+        android:background="@color/gray"
+        android:padding="5dp"></View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingBottom="5dp"
+        android:text="+ 줄기가 쳐져있을때, 물을 듬뿍 주면 된다\n+ 에어컨을 켤 때, 바람이 아예 닿지 않는 곳에 두자.\n+ 하엽지는 속도가 빠르다.\n+ 크게 자라는 식물이 아니다."
+        android:layout_gravity="left">
+    </TextView>
+
+
 </LinearLayout>
+
+</ScrollView>
