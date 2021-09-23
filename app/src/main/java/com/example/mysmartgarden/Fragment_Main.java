@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Calendar;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -128,6 +133,10 @@ public class Fragment_Main extends Fragment {
         info2=view.findViewById(R.id.info2);//습도
         info3=view.findViewById(R.id.info3);//온도
         info4=view.findViewById(R.id.info4);//물통양
+
+        RequestThread thread = new RequestThread();
+
+        thread.start();
     }
 
     @Override
@@ -212,6 +221,50 @@ public class Fragment_Main extends Fragment {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    class RequestThread extends Thread {
+
+        public void run() {
+
+            try {
+
+                StringBuilder outputBuilder = new StringBuilder();
+
+
+
+                URL url = new URL( "http://192.168.186.194/");
+
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                String temp;
+                String a = null;
+                while((temp=br.readLine())!=null){
+                    System.out.println(temp);
+                    a+=temp;
+                }
+                Log.d("TAG",a);
+                Log.d("test",a.substring(13,18));
+                Log.d("test",a.substring(31,35));
+                Log.d("test",a.substring(42,43));
+                Log.d("test",a.substring(43));
+                info1.setText(a.substring(13,18));
+                info2.setText(a.substring(31,35));
+                info3.setText(a.substring(42,43));
+                info4.setText(a.substring(43));
+
+                urlConnection.disconnect();
+                br.close();
+
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+
     }
 }
 
