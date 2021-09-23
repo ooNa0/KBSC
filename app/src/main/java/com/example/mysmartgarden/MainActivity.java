@@ -40,10 +40,7 @@ import me.relex.circleindicator.CircleIndicator3;
 
 public class MainActivity extends AppCompatActivity {
 
-    int clickedSun;
-    private boolean _isBtnDown;
-
-    // 데이터 수신 하겠습니다~
+    // 데이터 수신
     private Intent intent;
     private String plantName;
     private String plantSpecies;
@@ -52,16 +49,10 @@ public class MainActivity extends AppCompatActivity {
     // 싱글톤
     private Singleton userSingleton = Singleton.getInstance();
 
-    Toolbar toolbar;
-    ActionBar actionBar;
-
     private ViewPager2 mPager;
     private FragmentStateAdapter pagerAdapter;
     private int num_page = 3;
     private CircleIndicator3 mIndicator;
-
-    Map<String, Object> list;
-    Fragment_Main mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         //Indicator
         mIndicator = findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
-        mIndicator.createIndicators(num_page,0);
+        mIndicator.createIndicators(num_page, 0);
         //ViewPager Setting
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         mPager.setCurrentItem(1000);
@@ -94,19 +85,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                mIndicator.animatePageSelected(position%num_page);
+                mIndicator.animatePageSelected(position % num_page);
             }
-
         });
-
-        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
-        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
 
         mPager.setPageTransformer(new ViewPager2.PageTransformer() {
             @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void transformPage(@NonNull View page, float position) {
-                float myOffset = position ;
+                float myOffset = position;
                 if (mPager.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
                     if (ViewCompat.getLayoutDirection(mPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
                         page.setTranslationX(-myOffset);

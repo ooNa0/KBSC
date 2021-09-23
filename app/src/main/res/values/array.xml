@@ -2,8 +2,8 @@
 <resources>
     <string-array name="plant_array">
         <item>상추</item>
-        <item>배추</item>
-        <item>나영</item>
+        <item>피토니아</item>
+        <item>산세베리아 스투키(실린드리카)</item>
     </string-array>
 
 </resources>

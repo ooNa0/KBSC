@@ -69,7 +69,6 @@ public class Fragment_Main extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) { //몰라 무시해 -> 네?ㅋㅋㅋㅋㅋㅋㅋㅋㅋ
         super.onCreate(savedInstanceState);
-
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -90,7 +89,7 @@ public class Fragment_Main extends Fragment {
         plantName=view.findViewById(R.id.HelloPlantname);// 이름
         long day=dayCalculator(userSingleton.getEntry());
 
-        withday.setText(String.valueOf(day)); // 이거 처음에 intro에서 입력한 날짜 타임스탬프로 찍어서 계산해주면 되려나
+        withday.setText(String.valueOf(day));
         plantName.setText(userSingleton.getName());
 
         clickedSun=1;

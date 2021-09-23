@@ -11,4 +11,7 @@
     <color name="gray2">#323232</color>
     <color name="gray3">#1C1C1C</color>
     <color name="pink">#ff6464</color>
+    <color name="gray">#ADB5BD</color>
+    <color name="yellow">#F9F9D0</color>
+    <color name="green">#50A387</color>
 </resources>

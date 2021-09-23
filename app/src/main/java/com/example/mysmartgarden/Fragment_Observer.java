@@ -215,8 +215,6 @@ public class Fragment_Observer extends Fragment {
             @Override
             public void onClick(View view) {
 
-
-
                 save_Btn.setVisibility(View.INVISIBLE);
                 cha_Btn.setVisibility(View.VISIBLE);
                 del_Btn.setVisibility(View.VISIBLE);

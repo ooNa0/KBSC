@@ -171,32 +171,28 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/info1"
                             android:text="70%"
-                            android:textSize="70px"
-                            android:textColor="#006D49"/>
+                            android:textSize="70px"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="65%"
                             android:id="@+id/info2"
-                            android:textSize="70px"
-                            android:textColor="#006D49"/>
+                            android:textSize="70px"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="27℃"
                             android:id="@+id/info3"
-                            android:textSize="70px"
-                            android:textColor="#006D49"/>
+                            android:textSize="70px"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="65% "
                             android:id="@+id/info4"
-                            android:textSize="70px"
-                            android:textColor="#006D49"/>
+                            android:textSize="70px"/>
                     </LinearLayout>
                 </LinearLayout>
 
