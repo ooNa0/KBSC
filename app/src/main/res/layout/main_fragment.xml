@@ -169,7 +169,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/info1"
+                            android:id="@+id/soilHumidityView"
                             android:text="70%"
                             android:textSize="70px"/>
 
@@ -177,21 +177,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="65%"
-                            android:id="@+id/info2"
+                            android:id="@+id/airHumidityView"
                             android:textSize="70px"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="27℃"
-                            android:id="@+id/info3"
+                            android:id="@+id/temperatureView"
                             android:textSize="70px"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" X "
-                            android:id="@+id/info4"
+                            android:id="@+id/waterView"
                             android:textSize="70px"/>
                     </LinearLayout>
                 </LinearLayout>

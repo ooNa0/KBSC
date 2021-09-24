@@ -48,7 +48,13 @@ public class Fragment_Main extends Fragment {
 
     WeatherView weatherView;//뒤에 물 주는 배경
 
-    public TextView notice,info1,info2,info3,info4;
+    private TextView notice;
+    private TextView soilHumidityView;
+    private TextView airHumidityView;
+    private TextView temperatureView;
+    private TextView waterView;
+
+    private long day;
 
     // 값 xml 파일 값 settext를 위한 빌드업
     TextView plantName;
@@ -61,7 +67,7 @@ public class Fragment_Main extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) { //몰라 무시해 -> 네?ㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
@@ -83,7 +89,7 @@ public class Fragment_Main extends Fragment {
 
         withday=view.findViewById(R.id.day);// 함께한 일자
         plantName=view.findViewById(R.id.HelloPlantname);// 이름
-        long day=dayCalculator(userSingleton.getEntry());
+        day=dayCalculator(userSingleton.getEntry());
 
         withday.setText(String.valueOf(day));
         plantName.setText(userSingleton.getName());
@@ -120,83 +126,62 @@ public class Fragment_Main extends Fragment {
             }
         });
         notice=view.findViewById(R.id.notice);//알림
-        info1=view.findViewById(R.id.info1);//토양습도
-        info2=view.findViewById(R.id.info2);//습도
-        info3=view.findViewById(R.id.info3);//온도
-        info4=view.findViewById(R.id.info4);//물통양
+        soilHumidityView=view.findViewById(R.id.soilHumidityView);//토양습도
+        airHumidityView=view.findViewById(R.id.airHumidityView);//습도
+        temperatureView=view.findViewById(R.id.temperatureView);//온도
+        waterView=view.findViewById(R.id.waterView);//물통양
 
-
-
-        Thread thread1 = new Thread(new Runnable(){
+        Thread thread = new Thread(new Runnable(){
             @Override public void run() { // UI 작업 수행 X
-                try {
+                while(true){
+                    try {
+                        StringBuilder outputBuilder = new StringBuilder();
 
-                    StringBuilder outputBuilder = new StringBuilder();
+                        URL url = new URL( "http://192.168.186.194/");
 
-
-
-                    URL url = new URL( "http://192.168.186.194/");
-
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    String temp;
-                    String a = null;
-                    while((temp=br.readLine())!=null){
-                        System.out.println(temp);
-                        a+=temp;
-                    }
-                    Log.d("TAG",a);
-
-                    String in2=a.substring(13,15);//    대기습도
-                    String in3 =a.substring(31,35);//온도
-                    String in1 = a.substring(42,43);//토양
-                    String in4;
-                    if(a.substring(43).equals("Not FUll Water")){
-                        in4="X";
-                    }
-                    else{
-                        in4="O";
-                    }
-                    Log.d("test",in1);
-                    Log.d("test",in2);
-                    Log.d("test",in3);
-                    Log.d("test",in4);
-
-
-
-                    mhandler.post(new Runnable(){
-                        @Override public void run() {
-                            // UI 작업 수행 O
-                            info1.setText(in1);
-                            info2.setText(in2);
-                            info3.setText(in3);
-                            info4.setText(in4);
+                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                        BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                        String temp;
+                        String a = null;
+                        while((temp=br.readLine())!=null){
+                            System.out.println(temp);
+                            a+=temp;
                         }
-                    });
+                        Log.d("TAG",a);
 
+                        String airHumidity=a.substring(13,15);// 대기습도
+                        String temperature =a.substring(31,35);//온도
+                        String soilHumidity = a.substring(42,43);//토양
+                        String water; // 물통
+                        if(a.substring(43).equals("Not FUll Water")){
+                            water="X";
+                        }
+                        else{
+                            water="O";
+                        }
+                        Log.d("test",soilHumidity);
+                        Log.d("test",airHumidity);
+                        Log.d("test",temperature);
+                        Log.d("test",water);
 
-                    urlConnection.disconnect();
-                    br.close();
-
-
-                } catch (Exception e) {
-
-                    e.printStackTrace();
-
-
+                        mhandler.post(new Runnable(){
+                            @Override public void run() {
+                                // UI 작업 수행 O
+                                soilHumidityView.setText(soilHumidity);
+                                airHumidityView.setText(airHumidity);
+                                temperatureView.setText(temperature);
+                                waterView.setText(water);
+                            }
+                        });
+                        urlConnection.disconnect();
+                        br.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-
-
             }
         });
-        thread1.start();
-
-
-
-        /*info1.setText(state.getInfo1());
-        info2.setText(state.getInfo2());
-        info3.setText(state.getInfo3());
-        info4.setText(state.getInfo4());*/
+        thread.start();
     }
 
     @Override
@@ -227,7 +212,6 @@ public class Fragment_Main extends Fragment {
             while(_isBtnDown)
             {
                 touchHandler.sendEmptyMessage(9876);
-
                 try{
                     Thread.sleep(200);
                 }catch(Exception e){
