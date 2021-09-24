@@ -190,7 +190,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="65% "
+                            android:text=" X "
                             android:id="@+id/info4"
                             android:textSize="70px"/>
                     </LinearLayout>

@@ -1,7 +1,6 @@
 package com.example.mysmartgarden;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,28 +22,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.github.matteobattilana.weather.PrecipType;
 import com.github.matteobattilana.weather.WeatherView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 public class Fragment_Main extends Fragment {
 
@@ -55,17 +42,19 @@ public class Fragment_Main extends Fragment {
     Singleton userSingleton = Singleton.getInstance();
 
     FirebaseFirestore db;
-
+    State state=new State();
     ImageButton sun;//태양버튼
     ImageButton plant;// 식물버튼-> 물주기
 
     WeatherView weatherView;//뒤에 물 주는 배경
 
-    TextView notice,info1,info2,info3,info4;
+    public TextView notice,info1,info2,info3,info4;
 
     // 값 xml 파일 값 settext를 위한 빌드업
     TextView plantName;
     TextView withday;
+
+    Handler mhandler;
 
     public Fragment_Main(){
 
@@ -89,6 +78,8 @@ public class Fragment_Main extends Fragment {
         super.onViewCreated(view,savedInstancdState);
 
         db = FirebaseFirestore.getInstance();
+
+        mhandler= new Handler();
 
         withday=view.findViewById(R.id.day);// 함께한 일자
         plantName=view.findViewById(R.id.HelloPlantname);// 이름
@@ -134,9 +125,78 @@ public class Fragment_Main extends Fragment {
         info3=view.findViewById(R.id.info3);//온도
         info4=view.findViewById(R.id.info4);//물통양
 
-        RequestThread thread = new RequestThread();
 
-        thread.start();
+
+        Thread thread1 = new Thread(new Runnable(){
+            @Override public void run() { // UI 작업 수행 X
+                try {
+
+                    StringBuilder outputBuilder = new StringBuilder();
+
+
+
+                    URL url = new URL( "http://192.168.186.194/");
+
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    String temp;
+                    String a = null;
+                    while((temp=br.readLine())!=null){
+                        System.out.println(temp);
+                        a+=temp;
+                    }
+                    Log.d("TAG",a);
+
+                    String in1=a.substring(13,15);
+                    String in2 =a.substring(31,35);
+                    String in3 = a.substring(42,43);
+                    String in4;
+                    if(a.substring(43).equals("Not FUll Water")){
+                        in4="X";
+                    }
+                    else{
+                        in4="O";
+                    }
+                    Log.d("test",in1);
+                    Log.d("test",in2);
+                    Log.d("test",in3);
+                    Log.d("test",in4);
+
+
+
+                    mhandler.post(new Runnable(){
+                        @Override public void run() {
+                            // UI 작업 수행 O
+                            info1.setText(in1);
+                            info2.setText(in2);
+                            info3.setText(in3);
+                            info4.setText(in4);
+                        }
+                    });
+
+
+                    urlConnection.disconnect();
+                    br.close();
+
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+
+
+                }
+
+
+            }
+        });
+        thread1.start();
+
+
+
+        /*info1.setText(state.getInfo1());
+        info2.setText(state.getInfo2());
+        info3.setText(state.getInfo3());
+        info4.setText(state.getInfo4());*/
     }
 
     @Override
@@ -223,48 +283,5 @@ public class Fragment_Main extends Fragment {
         return 0;
     }
 
-    class RequestThread extends Thread {
-
-        public void run() {
-
-            try {
-
-                StringBuilder outputBuilder = new StringBuilder();
-
-
-
-                URL url = new URL( "http://192.168.186.194/");
-
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                String temp;
-                String a = null;
-                while((temp=br.readLine())!=null){
-                    System.out.println(temp);
-                    a+=temp;
-                }
-                Log.d("TAG",a);
-                Log.d("test",a.substring(13,18));
-                Log.d("test",a.substring(31,35));
-                Log.d("test",a.substring(42,43));
-                Log.d("test",a.substring(43));
-                info1.setText(a.substring(13,18));
-                info2.setText(a.substring(31,35));
-                info3.setText(a.substring(42,43));
-                info4.setText(a.substring(43));
-
-                urlConnection.disconnect();
-                br.close();
-
-
-            } catch (Exception e) {
-
-                e.printStackTrace();
-
-            }
-
-        }
-
-    }
 }
 
