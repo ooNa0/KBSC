@@ -147,9 +147,9 @@ public class Fragment_Main extends Fragment {
                     }
                     Log.d("TAG",a);
 
-                    String in1=a.substring(13,15);
-                    String in2 =a.substring(31,35);
-                    String in3 = a.substring(42,43);
+                    String in2=a.substring(13,15);//    대기습도
+                    String in3 =a.substring(31,35);//온도
+                    String in1 = a.substring(42,43);//토양
                     String in4;
                     if(a.substring(43).equals("Not FUll Water")){
                         in4="X";
