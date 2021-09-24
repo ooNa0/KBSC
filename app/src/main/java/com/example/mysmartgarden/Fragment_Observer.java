@@ -162,7 +162,6 @@ public class Fragment_Observer extends Fragment {
 
                 dialog.show();
                 TextView info =dialog.findViewById(R.id.info);
-
                 RadioGroup radio = dialog.findViewById(R.id.radio);
                 radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
 
@@ -278,13 +277,13 @@ public class Fragment_Observer extends Fragment {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         switch(checkedId){
                             case R.id.radio_button_good:
-                                info.setText("좋음");
+                                info.setText("좋음☺");
                                 break;
                             case R.id.radio_button_soso:
-                                info.setText("중간");
+                                info.setText("중간\uD83D\uDE10");
                                 break;
                             case R.id.radio_button_bad:
-                                info.setText("나쁨");
+                                info.setText("나쁨☹");
                                 break;
                             default:
                                 info.setText("모름");

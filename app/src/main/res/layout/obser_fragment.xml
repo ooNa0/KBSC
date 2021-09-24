@@ -2,108 +2,122 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F9F9D0">
+    android:background="#F9F9D0"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_gravity="center"
         android:layout_margin="10dp"
+        android:gravity="center"
         android:text="관찰기록"
+        android:textColor="@color/gray3"
         android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/gray3"/>
+        android:textStyle="bold" />
 
     <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/calendarView"
         android:layout_gravity="center"
-        android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-        />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp" />
 
     <TextView
+        android:id="@+id/diaryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity= "center"
-        android:id="@+id/diaryTextView" android:layout_marginTop="16dp"
         android:layout_gravity="center"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-    <EditText
-        android:layout_width="220dp"
-        android:layout_height="116dp"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/contextEditText"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        android:hint="내용을 입력하세요."
-        android:layout_margin="10dp"
-        android:visibility="invisible"
-        android:layout_gravity="center"
-        android:maxLines="3"
-        android:maxLength="30"
-        />
+        <EditText
+            android:id="@+id/contextEditText"
+            android:layout_width="220dp"
+            android:layout_height="116dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="내용을 입력하세요."
+            android:inputType="textMultiLine"
+            android:maxLength="30"
+            android:maxLines="3"
+            android:visibility="invisible" />
+
         <Button
+            android:id="@+id/stateButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:id="@+id/stateButton"
-            android:text="상태"
-            android:background="@drawable/eclipse_s"
-            android:textColor="#E4E4A4"
             android:layout_margin="10dp"
+            android:background="@drawable/eclipse_s"
             android:gravity="center"
-            android:visibility="invisible"/>
+            android:text="상태"
+            android:textColor="#E4E4A4"
+            android:visibility="invisible" />
 
-</LinearLayout>
+        <!--        <Button-->
+        <!--            android:layout_width="70dp"-->
+        <!--            android:layout_height="70dp"-->
+        <!--            android:id="@+id/stateButton"-->
+        <!--            android:text="상태"-->
+        <!--            android:background="@drawable/eclipse_s"-->
+        <!--            android:textColor="#E4E4A4"-->
+        <!--            android:layout_margin="10dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:visibility="invisible"/>-->
+
+    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-    <Button
-        android:text="저장"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:id="@+id/save_Btn"
-        android:visibility="invisible"
-        android:layout_margin="20dp"
-        android:layout_gravity="center"
         android:gravity="center"
-        android:background="@drawable/eclipse_s"
-        android:textColor="#E4E4A4"/>
+        android:orientation="horizontal">
 
-    <Button
-        android:text="수정"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:id="@+id/cha_Btn"
-        android:layout_margin="20dp"
-        android:visibility="invisible"
-        android:layout_gravity="center"
-        android:background="@drawable/eclipse_s"
-        android:textColor="#E4E4A4"/>
+        <Button
+            android:id="@+id/save_Btn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/eclipse_s"
+            android:gravity="center"
+            android:text="저장"
+            android:textColor="#E4E4A4"
+            android:visibility="invisible" />
 
-    <Button
-        android:text="삭제"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:id="@+id/del_Btn"
-        android:layout_margin="20dp"
-        android:visibility="invisible"
-        android:layout_gravity="center"
-        android:background="@drawable/eclipse_s"
-        android:textColor="#E4E4A4"></Button>
+        <Button
+            android:id="@+id/cha_Btn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/eclipse_s"
+            android:text="수정"
+            android:textColor="#E4E4A4"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/del_Btn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/eclipse_s"
+            android:text="삭제"
+            android:textColor="#E4E4A4"
+            android:visibility="invisible"></Button>
 
     </LinearLayout>
 

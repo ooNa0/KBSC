@@ -13,7 +13,6 @@ public class Fragment_Info extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.info_fragment, container, false);
-
         return rootView;
     }
 }
