@@ -2,47 +2,47 @@ package com.example.mysmartgarden;
 
 public class State {
 
-    private String info1;
-    private String info2;
-    private String info3;
-    private String info4;
+    private Float humidity;//대기습도
+    private Float soilwater;//토양
+    private Float temperature;//온도
+    private int waterlevel;//물통
 
-    public void State(String info1,String info2, String info3, String info4){
-        this.info1=info1;
-        this.info2=info2;
-        this.info3=info3;
-        this.info4=info4;
+    public void State(Float humidity,Float soilwater, Float temperature, int waterlevel){
+        this.humidity=humidity;
+        this.soilwater=soilwater;
+        this.temperature=temperature;
+        this.waterlevel=waterlevel;
     }
 
-    public String getInfo1() {
-        return info1;
+    public Float getHumidity() {
+        return humidity;
     }
 
-    public String getInfo2() {
-        return info2;
+    public Float getSoilwater() {
+        return soilwater;
     }
 
-    public String getInfo3() {
-        return info3;
+    public Float getTemperature() {
+        return temperature;
     }
 
-    public String getInfo4() {
-        return info4;
+    public int getWaterlevel() {
+        return waterlevel;
     }
 
-    public void setInfo1(String info1) {
-        this.info1 = info1;
+    public void setHumidity(Float humidity) {
+        this.humidity = humidity;
     }
 
-    public void setInfo2(String info2) {
-        this.info2 = info2;
+    public void setSoilwater(Float soilwater) {
+        this.soilwater = soilwater;
     }
 
-    public void setInfo3(String info3) {
-        this.info3 = info3;
+    public void setTemperature(Float temperature) {
+        this.temperature = temperature;
     }
 
-    public void setInfo4(String info4) {
-        this.info4 = info4;
+    public void setWaterlevel(int waterlevel) {
+        this.waterlevel = waterlevel;
     }
 }

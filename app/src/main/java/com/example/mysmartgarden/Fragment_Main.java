@@ -8,9 +8,14 @@ import android.os.Message;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Calendar;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +33,14 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.github.matteobattilana.weather.PrecipType;
 import com.github.matteobattilana.weather.WeatherView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
@@ -98,7 +112,17 @@ public class Fragment_Main extends Fragment {
 
         weatherView = view.findViewById(R.id.weather_view);
 
+        writeWater(0);//초기화 -> 0:안줌 1:조금 줌 2:많이줌 <-누르는 시간에따라 결정해줌
+        plant.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                writeWater(2);
+                return false;
+            }
+        });
         plant.setOnTouchListener(onBtnTouchListener); // 물주는거 관련 버튼 리스너
+
+        writeLight("On");//초기화
 
         sun.setOnClickListener(new View.OnClickListener(){//태양 클릭 시
             @SuppressLint("ResourceAsColor")
@@ -108,6 +132,7 @@ public class Fragment_Main extends Fragment {
                     main_back.setBackgroundColor(Color.parseColor("#1B4537"));
                     Glide.with(view).load(R.raw.moon).into(sun);
                     sun.setBackgroundColor(Color.parseColor("#1B4537"));
+                    writeLight("Off");
                     clickedSun++;
                 }
 
@@ -116,87 +141,80 @@ public class Fragment_Main extends Fragment {
                     Glide.with(view).load(R.raw.sun).into(sun);
                     sun.setBackgroundColor(Color.parseColor("#50A387"));
                     clickedSun=1;
+                    writeLight("On");
                 }
             }
         });
+
+
         notice=view.findViewById(R.id.notice);//알림
         info1=view.findViewById(R.id.info1);//토양습도
         info2=view.findViewById(R.id.info2);//습도
         info3=view.findViewById(R.id.info3);//온도
         info4=view.findViewById(R.id.info4);//물통양
 
+        readData();
 
+        DatabaseReference mDatabase;//리얼타임
+        mDatabase= FirebaseDatabase.getInstance().getReference("data");
 
-        Thread thread1 = new Thread(new Runnable(){
-            @Override public void run() { // UI 작업 수행 X
-                try {
+        ChildEventListener childEventListener;//상시대기 리스너
+        childEventListener =new ChildEventListener() {
 
-                    StringBuilder outputBuilder = new StringBuilder();
-
-
-
-                    URL url = new URL( "http://192.168.186.194/");
-
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    String temp;
-                    String a = null;
-                    while((temp=br.readLine())!=null){
-                        System.out.println(temp);
-                        a+=temp;
-                    }
-                    Log.d("TAG",a);
-
-                    String in2=a.substring(13,15);//    대기습도
-                    String in3 =a.substring(31,35);//온도
-                    String in1 = a.substring(42,43);//토양
-                    String in4;
-                    if(a.substring(43).equals("Not FUll Water")){
-                        in4="X";
-                    }
-                    else{
-                        in4="O";
-                    }
-                    Log.d("test",in1);
-                    Log.d("test",in2);
-                    Log.d("test",in3);
-                    Log.d("test",in4);
-
-
-
-                    mhandler.post(new Runnable(){
-                        @Override public void run() {
-                            // UI 작업 수행 O
-                            info1.setText(in1);
-                            info2.setText(in2);
-                            info3.setText(in3);
-                            info4.setText(in4);
-                        }
-                    });
-
-
-                    urlConnection.disconnect();
-                    br.close();
-
-
-                } catch (Exception e) {
-
-                    e.printStackTrace();
-
-
-                }
-
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             }
-        });
-        thread1.start();
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Log.d("child", "onChildChanged:" + snapshot.getKey());
+                Log.d("child", "onChildChanged:" + snapshot.getValue());
+
+                switch(snapshot.getKey()){
+                    case "humidity":
+                        info2.setText(snapshot.getValue().toString());
+                        break;
+                    case "soilwater":
+                        info1.setText(snapshot.getValue().toString());
+                        break;
+                    case "temperature":
+                        info3.setText(snapshot.getValue().toString());
+                        break;
+                    case "waterlevel":
+                        if (snapshot.getValue().toString()=="1") {
+                            info4.setText("0");
+                        } else {
+                            info4.setText("X");
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(view.getContext(), "Fail to get data.", Toast.LENGTH_SHORT).show();
+            }
+        };
+        mDatabase.addChildEventListener(childEventListener);
 
 
 
-        /*info1.setText(state.getInfo1());
-        info2.setText(state.getInfo2());
-        info3.setText(state.getInfo3());
-        info4.setText(state.getInfo4());*/
+
     }
 
     @Override
@@ -245,11 +263,14 @@ public class Fragment_Main extends Fragment {
                     _isBtnDown = true;
                     weatherView.setWeatherData(PrecipType.RAIN);
                     onBtnDown();
+                    writeWater(1);
                     break;
 
                 case MotionEvent.ACTION_UP://때면
                     _isBtnDown = false;
                     weatherView.setWeatherData(PrecipType.CLEAR);
+                    writeWater(0);
+
                     break;
 
                 default:
@@ -281,6 +302,46 @@ public class Fragment_Main extends Fragment {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public void readData(){
+        DatabaseReference mDatabase;//리얼타임
+        mDatabase= FirebaseDatabase.getInstance().getReference("data");
+
+        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    State state= task.getResult().getValue(State.class);
+                    info1.setText(state.getSoilwater().toString());
+                    info2.setText(state.getHumidity().toString());
+                    info3.setText(state.getTemperature().toString());
+                    if(state.getWaterlevel()==0){
+                        info4.setText("X");
+                    }
+                    else{
+                        info4.setText("O");
+                    }
+
+                }
+            }
+        });
+    }
+
+    public void writeLight(String state){
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mDbRef = mDatabase.getReference("post/light");
+        mDbRef.setValue(state);
+    }
+
+    public void writeWater(int n){
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mDbRef = mDatabase.getReference("post/water");
+        mDbRef.setValue(n);
     }
 
 }
