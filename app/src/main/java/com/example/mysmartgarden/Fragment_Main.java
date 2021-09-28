@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.AccessController;
 import java.util.Calendar;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -69,6 +71,7 @@ public class Fragment_Main extends Fragment {
     TextView withday;
 
     Handler mhandler;
+    private Fragment_Main view;
 
     public Fragment_Main(){
 
@@ -122,7 +125,7 @@ public class Fragment_Main extends Fragment {
         });
         plant.setOnTouchListener(onBtnTouchListener); // 물주는거 관련 버튼 리스너
 
-        writeLight("On");//초기화
+        writeLight(1);//초기화
 
         sun.setOnClickListener(new View.OnClickListener(){//태양 클릭 시
             @SuppressLint("ResourceAsColor")
@@ -132,7 +135,7 @@ public class Fragment_Main extends Fragment {
                     main_back.setBackgroundColor(Color.parseColor("#1B4537"));
                     Glide.with(view).load(R.raw.moon).into(sun);
                     sun.setBackgroundColor(Color.parseColor("#1B4537"));
-                    writeLight("Off");
+                    writeLight(0);
                     clickedSun++;
                 }
 
@@ -141,7 +144,7 @@ public class Fragment_Main extends Fragment {
                     Glide.with(view).load(R.raw.sun).into(sun);
                     sun.setBackgroundColor(Color.parseColor("#50A387"));
                     clickedSun=1;
-                    writeLight("On");
+                    writeLight(1);
                 }
             }
         });
@@ -154,6 +157,8 @@ public class Fragment_Main extends Fragment {
         info4=view.findViewById(R.id.info4);//물통양
 
         readData();
+
+
 
         DatabaseReference mDatabase;//리얼타임
         mDatabase= FirebaseDatabase.getInstance().getReference("data");
@@ -193,6 +198,8 @@ public class Fragment_Main extends Fragment {
                         break;
                 }
 
+                senseDegree();//색상변화및 경고문구 담당 함수
+
             }
 
             @Override
@@ -220,6 +227,41 @@ public class Fragment_Main extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    public void senseDegree(){
+        if(Double.parseDouble(info1.getText().toString())>=1000.0){//토양 센서 수치 1000이상이면 경고 ->물주세요
+            info1.setTextColor(Color.parseColor("#FF0057"));
+
+        }
+        else{
+            info1.setTextColor(Color.parseColor("#FF000000"));
+        }
+
+        if(Double.parseDouble(info2.getText().toString())>=70.0){//습도 센서 수치 70이상이면 경고
+            info2.setTextColor(Color.parseColor("#FF0057"));
+
+        }
+        else{
+            info2.setTextColor(Color.parseColor("#FF000000"));
+        }
+
+        if(Double.parseDouble(info3.getText().toString())>=29.0){//온도 29도 이상 이면 경고 ->온도를 낮춰주세
+            info3.setTextColor(Color.parseColor("#FF0057"));
+
+        }
+        else{
+            info3.setTextColor(Color.parseColor("#FF000000"));
+        }
+
+        if(info4.getText().toString().equals("X")){//없으면 경고 -> 물채워주세요;
+            info4.setTextColor(Color.parseColor("#FF0057"));
+
+        }
+        else{
+            info4.setTextColor(Color.parseColor("#FF000000"));
+        }
+
     }
 
     private void onBtnDown()
@@ -332,7 +374,7 @@ public class Fragment_Main extends Fragment {
         });
     }
 
-    public void writeLight(String state){
+    public void writeLight(int state){
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mDbRef = mDatabase.getReference("post/light");
         mDbRef.setValue(state);
@@ -343,6 +385,8 @@ public class Fragment_Main extends Fragment {
         DatabaseReference mDbRef = mDatabase.getReference("post/water");
         mDbRef.setValue(n);
     }
+
+
 
 }
 
