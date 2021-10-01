@@ -169,26 +169,26 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/soilHumidityView"
-                            android:textSize="40px"/>
+                            android:textSize="25dp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/airHumidityView"
-                            android:textSize="40px"/>
+                            android:textSize="27dp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/temperatureView"
-                            android:textSize="40px"/>
+                            android:textSize="27dp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" X "
                             android:id="@+id/waterView"
-                            android:textSize="70px"/>
+                            android:textSize="27dp"/>
                     </LinearLayout>
                 </LinearLayout>
 
