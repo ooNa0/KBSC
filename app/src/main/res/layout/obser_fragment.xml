@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_centerVertical="true"
-        app:mcv_selectionColor="#E4E4A4"
+        app:mcv_selectionColor="#50A387"
         app:mcv_showOtherDates="all"/>
 
     <View
@@ -172,7 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/eclipse_s"
+            android:background="#50A387"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="20dp"
@@ -196,7 +196,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/eclipse_s"
+            android:background="#50A387"
             android:text="삭제하기"
             android:textStyle="bold"
             android:textSize="20dp"
