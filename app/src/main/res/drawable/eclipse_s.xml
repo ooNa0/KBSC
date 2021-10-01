@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="50dp"
-    android:height="50dp"
-    android:viewportWidth="148"
-    android:viewportHeight="148"
-    >
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
 
-    <group>
+    <stroke
+        android:width="1dp"
+        android:color="#50A387" />
+    <size
+        android:width="100dp"
+        android:height="50dp" />
+    <corners android:radius="10dp" />
+</shape>
+    <!--<vector-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:aapt="http://schemas.android.com/aapt"-->
+<!--    android:width="50dp"-->
+<!--    android:height="50dp"-->
+<!--    android:viewportWidth="148"-->
+<!--    android:viewportHeight="148"-->
+<!--    >-->
 
-        <clip-path
-            android:pathData="M148 74C148 114.869 114.869 148 74 148C33.1309 148 0 114.869 0 74C0 33.1309 33.1309 0 74 0C114.869 0 148 33.1309 148 74Z"
-            />
+<!--    <group>-->
 
-        <path
-            android:pathData="M0 0V148H148V0"
-            android:fillColor="#50A387"
-            />
+<!--        <clip-path-->
+<!--            android:pathData="M148 74C148 114.869 114.869 148 74 148C33.1309 148 0 114.869 0 74C0 33.1309 33.1309 0 74 0C114.869 0 148 33.1309 148 74Z"-->
+<!--            />-->
 
-    </group>
+<!--        <path-->
+<!--            android:pathData="M0 0V148H148V0"-->
+<!--            android:fillColor="#50A387"-->
+<!--            />-->
 
-</vector>
+<!--    </group>-->
+
+<!--</vector>-->

@@ -37,18 +37,15 @@
             android:id="@+id/radio_button_soso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="중간"
+            android:text="중간😶"
             android:layout_marginEnd="10dp" />
 
         <RadioButton
             android:id="@+id/radio_button_bad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="나쁨"
+            android:text="나쁨😞"
             android:layout_marginEnd="10dp" />
-
-
-
 
     </RadioGroup>
     <TextView
@@ -66,6 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="완료"
+        android:background="#50A387"
         android:layout_margin="12dp"
         android:id="@+id/decide"
         />

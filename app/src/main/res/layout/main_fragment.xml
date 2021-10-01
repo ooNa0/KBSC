@@ -102,7 +102,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/notice"
-                android:text="빛이 필요해요!\n태양을 클릭해주세요."
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="20dp"
@@ -170,22 +169,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/soilHumidityView"
-                            android:text="70%"
-                            android:textSize="70px"/>
+                            android:textSize="40px"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="65%"
                             android:id="@+id/airHumidityView"
-                            android:textSize="70px"/>
+                            android:textSize="40px"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="27℃"
                             android:id="@+id/temperatureView"
-                            android:textSize="70px"/>
+                            android:textSize="40px"/>
 
                         <TextView
                             android:layout_width="wrap_content"
