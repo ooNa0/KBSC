@@ -176,7 +176,7 @@ public class Fragment_Main extends Fragment {
                         if(Float.parseFloat(snapshot.getValue().toString()) > 70){
                             airHumidityView.setTextColor(Color.RED);
                             notice.setText(Constant.PLANT_IS_ENGRY3);
-                        }else if(Float.parseFloat(snapshot.getValue().toString()) > 40){
+                        }else if(Float.parseFloat(snapshot.getValue().toString()) < 40){
                             airHumidityView.setTextColor(Color.BLUE);
                             notice.setText(Constant.PLANT_IS_ENGRY6);
                         }
@@ -205,7 +205,7 @@ public class Fragment_Main extends Fragment {
                         if(Float.parseFloat(snapshot.getValue().toString()) > 26){
                             temperatureView.setTextColor(Color.RED);
                             notice.setText(Constant.PLANT_IS_HAPPY15);
-                        }else if(Float.parseFloat(snapshot.getValue().toString()) > 13){
+                        }else if(Float.parseFloat(snapshot.getValue().toString()) < 13){
                             temperatureView.setTextColor(Color.BLUE);
                             notice.setText(Constant.PLANT_IS_ENGRY7);
                         }
@@ -351,18 +351,56 @@ public class Fragment_Main extends Fragment {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    State state= task.getResult().getValue(State.class);
-                    soilHumidityView.setText(state.getSoilwater().toString());
-                    airHumidityView.setText(state.getHumidity().toString());
-                    temperatureView.setText(state.getTemperature().toString());
-                    if(state.getWaterlevel()==0){
-                        waterView.setText("X");
+                    State state = task.getResult().getValue(State.class);
+
+                    airHumidityView.setText(state.getHumidity().toString() + "%");
+                    if(Float.parseFloat(state.getHumidity().toString()) > 70){
+                        airHumidityView.setTextColor(Color.RED);
+                        notice.setText(Constant.PLANT_IS_ENGRY3);
+                    }else if(Float.parseFloat(state.getHumidity().toString()) < 40){
+                        airHumidityView.setTextColor(Color.BLUE);
+                        notice.setText(Constant.PLANT_IS_ENGRY6);
                     }
                     else{
-                        waterView.setText("O");
+                        airHumidityView.setTextColor(Color.BLACK);
+                        notice.setText(Constant.PLANT_IS_HAPPY3);
                     }
 
+                    if((Float.parseFloat(state.getSoilwater().toString()) > 1000)){
+                        soilHumidityView.setText("건조");
+                        soilHumidityView.setTextColor(Color.RED);
+                        notice.setText(Constant.PLANT_IS_ENGRY1);
+                    } else if(Float.parseFloat(state.getSoilwater().toString()) < 500){
+                        soilHumidityView.setText("습함");
+                        soilHumidityView.setTextColor(Color.RED);
+                        notice.setText(Constant.PLANT_IS_ENGRY4);
+                    } else{
+                        soilHumidityView.setText("적절");
+                        soilHumidityView.setTextColor(Color.BLACK);
+                        notice.setText(Constant.PLANT_IS_HAPPY4);
+                    }
+
+                    temperatureView.setText(state.getTemperature().toString() + "℃");
+                    if(Float.parseFloat(state.getTemperature().toString()) > 26){
+                        temperatureView.setTextColor(Color.RED);
+                        notice.setText(Constant.PLANT_IS_HAPPY15);
+                    }else if(Float.parseFloat(state.getTemperature().toString()) < 13){
+                        temperatureView.setTextColor(Color.BLUE);
+                        notice.setText(Constant.PLANT_IS_ENGRY7);
+                    }
+                    else{
+                        temperatureView.setTextColor(Color.BLACK);
+                        notice.setText(Constant.PLANT_IS_HAPPY4);
+                    }
+
+                    if (state.getWaterlevel()==1) {
+                        waterView.setText("0");
+                        waterView.setTextColor(Color.BLACK);
+                    } else {
+                        waterView.setText("X");
+                        waterView.setTextColor(Color.RED);
+                        notice.setText(Constant.PLANT_IS_ENGRY8);
+                    }
                 }
             }
         });

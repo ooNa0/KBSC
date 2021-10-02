@@ -152,7 +152,6 @@ public class Fragment_Observer extends Fragment {
                 state.setVisibility(View.VISIBLE);
                 state_Btn.setVisibility(View.VISIBLE);
 
-                Log.v("date", "-------" + date.toString());
                 int year = date.getYear();
                 int month = date.getMonth();
                 int dayOfMonth = date.getDay();
@@ -170,7 +169,7 @@ public class Fragment_Observer extends Fragment {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
-                            Log.v("docu", document.toString());
+
                             if (document.exists()) {
                                 Observation observation = document.toObject(Observation.class);
                                 if(observation.getYear()==year && observation.getMonth()==month+1 && observation.getDay()==dayOfMonth){//있을때
@@ -229,7 +228,7 @@ public class Fragment_Observer extends Fragment {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         switch(checkedId){
                             case R.id.radio_button_good:
-                                //info.setText("좋음");
+                                //info.setText("vg");
                                 info.setText("\uD83D\uDE00");
                                 break;
                             case R.id.radio_button_soso:
@@ -285,7 +284,7 @@ public class Fragment_Observer extends Fragment {
                 obser.put("year",nYear);
                 obser.put("month",nMonth);
                 obser.put("day",nDay);
-                String state = state_Btn.getText().toString();
+                obser.put("state", state_Btn.getText().toString());
 //                if(state=="상태"){
 //                    obser.put("state","모름");
 //                }
