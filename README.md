@@ -23,7 +23,7 @@
 
 ## 기술 스택
 
-[![My Skills](https://skillicons.dev/icons?i=java,android,firebase)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=java,androidstudio,firebase)](https://skillicons.dev)
 
 <br>
 
