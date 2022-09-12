@@ -25,8 +25,7 @@
 
 | Android | Firebase |
 | :--------: | :--------: |
-|     ![android](https://user-images.githubusercontent.com/79272103/189652594-1c8fd1ca-dee1-4607-9c96-eda8d3711b52.svg)
-  |   ![firebase](https://user-images.githubusercontent.com/79272103/189652706-e9e7f7b6-4e7f-4dfe-95f3-cb3cf6564449.svg)  |
+|     ![android](https://user-images.githubusercontent.com/79272103/189652594-1c8fd1ca-dee1-4607-9c96-eda8d3711b52.svg)|   ![firebase](https://user-images.githubusercontent.com/79272103/189652706-e9e7f7b6-4e7f-4dfe-95f3-cb3cf6564449.svg)  |
 
 <br>
 
